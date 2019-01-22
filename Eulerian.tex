@@ -1,0 +1,695 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Arsclassica Article
+% LaTeX Template
+% Version 1.1 (1/8/17)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Lorenzo Pantieri (http://www.lorenzopantieri.net) with extensive modifications by:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+10pt, % Main document font size
+a4paper, % Paper type, use 'letterpaper' for US Letter paper
+oneside, % One page layout (no page indentation)
+%twoside, % Two page layout (page indentation for binding and different headers)
+headinclude,footinclude, % Extra spacing for the header and footer
+BCOR5mm, % Binding correction
+]{scrartcl}
+
+\input{structure.tex} % Include the structure.tex file which specified the document structure and layout
+
+\newcommand{\xx}{\mathbf{x}}
+\newcommand{\XX}{\mathbf{X}}
+\newcommand{\XXX}{\mathbb{X}}
+\newcommand{\diff}{\mathrm{d}}
+\newcommand{\Id}{\mathbf{I}}
+\newcommand{\Tr}{\mathrm{Tr}}
+\newcommand{\CC}{\mathbf{C}}
+\newcommand{\dX}{\mathrm{d}\XX}
+\newcommand{\dx}{\mathrm{d}\xx}
+\newcommand{\mm}{\mathbf{m}}
+\newcommand{\vv}{\mathbf{v}}
+\newcommand{\MM}{\mathbf{M}}
+\newcommand{\OBig}{\mathcal{O}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\FF}{\mathbf{F}}
+\renewcommand{\AA}{\mathbf{A}}
+\newcommand{\BB}{\mathbf{B}}
+\newcommand{\qq}{\mathbf{q}}
+\newcommand{\QQ}{\mathbf{Q}}
+\newcommand{\LL}{\mathbf{L}}
+\newcommand{\Lie}{\mathfrak{L}}
+
+\newcommand{\IP}[1]{{\color{Red}IP:\ \ #1}}
+
+
+\hyphenation{Fortran hy-phen-ation} % Specify custom hyphenation points in words with dashes where you would like hyphenation to occur, or alternatively, don't put any dashes in a word to stop hyphenation altogether
+
+%----------------------------------------------------------------------------------------
+%	TITLE AND AUTHOR(S)
+%----------------------------------------------------------------------------------------
+
+\title{\normalfont\spacedallcaps{Eulerian continuum mechanics and thermodynamics}} % The article title
+
+%\subtitle{Subtitle} % Uncomment to display a subtitle
+
+\author{\spacedlowsmallcaps{MP*\textsuperscript{1} \& IP\textsuperscript{2} \& MH\textsuperscript{3}}} % The article author(s) - author affiliations need to be specified in the AUTHOR AFFILIATIONS block
+
+\date{} % An optional date to appear under the author(s)
+
+%----------------------------------------------------------------------------------------
+
+\usepackage{hyperref}
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	HEADERS
+%----------------------------------------------------------------------------------------
+
+\renewcommand{\sectionmark}[1]{\markright{\spacedlowsmallcaps{#1}}} % The header for all pages (oneside) or for even pages (twoside)
+%\renewcommand{\subsectionmark}[1]{\markright{\thesubsection~#1}} % Uncomment when using the twoside option - this modifies the header on odd pages
+\lehead{\mbox{\llap{\small\thepage\kern1em\color{halfgray} \vline}\color{halfgray}\hspace{0.5em}\rightmark\hfil}} % The header style
+
+\pagestyle{scrheadings} % Enable the headers specified in this block
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS & LISTS OF FIGURES AND TABLES
+%----------------------------------------------------------------------------------------
+
+\maketitle % Print the title/author/date block
+
+\setcounter{tocdepth}{2} % Set the depth of the table of contents to show sections and subsections only
+
+\tableofcontents % Print the table of contents
+
+\listoffigures % Print the list of figures
+
+\listoftables % Print the list of tables
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\section*{Abstract} % This section will not appear in the table of contents due to the star (\section*)
+
+Lagrangian Hamiltonian continuum mechanics -> Eulerian Hamiltonian continuum thermodynamics.
+Why Jacobi identity.
+Relation of hyperbolicity and Jacobi identity.
+Plasticity.
+
+%----------------------------------------------------------------------------------------
+%	AUTHOR AFFILIATIONS
+%----------------------------------------------------------------------------------------
+
+\let\thefootnote\relax\footnotetext{* \textit{pavelka@karlin.mff.cuni.cz}}
+
+\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{MFF UK}}
+\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{I de M Toulouse}}
+\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{Tu E}}
+
+%----------------------------------------------------------------------------------------
+
+\newpage % Start the article content on the second page, remove this if you have a longer abstract that goes onto the second page
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+Intro 
+\cite{HCO},\cite{PKG}, \cite{Markus2009}
+
+\section{Hamiltonian mechanics}
+\subsection{Lagrangian frame}
+Consider a body material points of which are described by a reference (Lagrangian) coordinate $\XX$. Position of the material point $\XX$ at time $t$ with respect to a chosen inertial laboratory frame is then given by the mapping $\xx(t,\XX)$ from the Lagrangian coordinates to the Eulerian coordinates. This mapping is usually assumed to be smooth enough and invertible. These properties will be violated later in this paper, but for the moment let us adopt those assumptions as well. 
+
+Mechanical state of a material point is characterized by its position $\xx(t,\XX)$ and velocity $\dot{\xx}(t,\XX)$ or the corresponding momentum density $\MM(t,\XX)$ (momentum per Lagrangian volume $\diff \XX$). In mathematical terms the couple $(\xx,\dot{\xx})$ forms a tangent bundle while the couple $(\xx,\MM)$ forms a cotangent bundle. Since we are seeking Hamiltonian evolution (generated by a Poisson bracket and energy), we choose the latter description. The Lagrangian state variables are thus the field of Eulerian positions $\xx(t,\XX)$ and the field of momentum density $\MM(t,\XX)$. 
+
+Since these state variables form a cotangent bundle, they are equipped with the canonical Poisson bracket in the Lagrangian frame
+\begin{equation}\label{eq.PB.L}
+	\{F,G\}^{(L)} = \int\dX \left(\frac{\delta F}{\delta x^i(\XX)} \frac{\delta G}{\delta M_i(\XX)} -\frac{\delta G}{\delta x^i(\XX)} \frac{\delta F}{\delta M_i(\XX)}\right),
+\end{equation}
+where $F$ and $G$ are two arbitrary functionals of the Lagrangian state variables. The explicit dependence on time is omitted from the notation as in the rest of the paper since now on. The derivatives stand for functional (or Volterra) derivatives, see Appendix \ref{sec.FD}. This Poisson bracket clearly satisfies the Jacobi identity,
+\begin{subequations}\label{eq.PB.prop}
+	\begin{equation}\label{eq.Jacobi}
+	\{F,\{G,H\}\}+
+	\{G,\{H,F\}\}+
+	\{H,\{F,G\}\} = 0,
+\end{equation}
+as can be seen by direct verification. The bracket is of course antisymmetric,
+\begin{equation}
+	\{F,G\} = -\{G,F\},
+\end{equation}
+and satisfies the Leibniz rule,
+\begin{equation}
+	\{F,G H\} = \{F,G\}H + G\{F,H\}.
+\end{equation}
+\end{subequations}
+Bracket \eqref{eq.PB.L} is indeed a Poisson bracket as it satisfies properties \eqref{eq.PB.prop}. 
+
+Denoting a general set of state variables by $\qq$, a Poisson bracket can be equivalently expressed by means of its Poisson bivector
+\begin{equation}
+	L^{ij} = \{q^i,q^j\},
+\end{equation}
+which is antisymmetric and can be used to reconstruct the bracket as follows,
+\begin{equation}
+	\{F,G\} = \langle F_{q^i}| L^{ij}|G_{q^j}\rangle.
+\end{equation}
+
+Once having state variables $\qq$, e.g. $\qq=(\xx(\XX),\MM(\xx))$, and the corresponding Poisson bracket, the reversible evolution of functionals of the state variables is given by 
+\begin{equation}
+	\dot{F} = \{F,E\},
+\end{equation}
+where $E$ is energy of the (isolated) system. This is a sort of weak formulation of the problem. On the other hand, evolution of the functional can be expressed using the chain rule as functional derivatives of the functional multiplied by evolution equations of the state variables. For instance, for the Lagrangian state variables we have 
+\begin{equation}
+	\dot{F}(\xx(\XX),\MM(\XX)) = \{F,E\}^{(L)}
+\end{equation}
+as well as
+\begin{equation}
+	\dot{F}(\xx(\XX),\MM(\XX)) = \int\dX \left(\frac{\delta F}{\delta x^i} \partial_t x^i + \frac{\delta F}{\delta M_i} \partial_t M_i \right).
+\end{equation}
+By comparing these two equalities, we can conclude that the evolution equations for $\xx$ and $\MM$ are
+\begin{subequations}\label{eq.L.evo}
+	\begin{eqnarray}
+		\partial_t x^i(\XX) &=& \frac{\delta E}{\delta M_i(\XX)}\\
+		\partial_t M_i(\XX) &=& -\frac{\delta E}{\delta x^i(\XX)}
+	\end{eqnarray}
+	for any energy $E(\xx,\MM)$. 
+\end{subequations}
+This is a way to obtain evolution equations from a Poisson bracket. An another (equivalent) way is to write the evolution equations for state variables $\qq$ as
+\begin{equation}\label{eq.qL}
+	\dot{q}^i = \{q^i, E\} = L^{ij} \frac{\delta E}{\delta q^j}.
+\end{equation}
+
+Choosing the energy as
+\begin{equation}
+	E = \int\dX \left(\frac{\MM^2}{2\rho_0} + \rho_0 W(\nabla_\XX \xx)\right),
+\end{equation}
+where the first term denotes the kinetic energy and the second elastic energy (dependent only on gradients of the field $\xx(\XX)$), equations \eqref{eq.L.evo} obtain the concerete form
+\begin{subequations}\label{eq.L.evo.fin}
+	\begin{eqnarray}
+		\partial_t x^i(\XX) &=& \frac{\delta^{ij} M_j}{\rho_0}\\
+		\partial_t M_i(\XX) &=& \frac{\partial}{\partial X^I}\left(\rho_0 \frac{\partial W}{\partial \frac{\partial x^i}{\partial X^I}}\right)
+	\end{eqnarray}
+	for any energy $E(\xx,\MM)$. The metric tensor $\delta^{ij}$ can be thought of as equal to the unit matrix in the Euclidean space endowed with Cartesian coordinates. Note that the Einstein summation convention is employed and that the capital index denotes coordinates in the Lagrangian frame. Also apart form the field $\rho_0(\XX)$ the energy can depend on the field of entropy density $s_0(\XX)$ (per volume $\dX$) to cope with non-isothermal bodies. Equations \eqref{eq.L.evo.fin} are the reversible evolution equations for a continous body with stored energy $W(\nabla_\XX \xx)$ in the Lagrangian frame, which are to be solved when initial and boundary conditions are supplied. 
+\end{subequations}
+
+However, it is often preferable to formulate the evolution equations in the Eulerian frame because (i) the Lagrangian configuration may be inaccessible (as in the case of fluids) and (ii) conservation laws are directly at hand in the Eulerian frame and so it is clearer how to add dissipative terms to the evolution equations. The complementary equations in the Eulerian frame are shown in the next section.
+
+\subsection{Eulerian frame}
+First we have to declare what are the fields constituting the Eulerian state variables. We choose the fields
+\begin{subequations}\label{eq.x.E}
+	\begin{eqnarray}
+		\rho(\xx) &=& \rho_0(\XX(\xx)) \cdot \det \frac{\partial \XX}{\partial \xx}\\
+		\mm(\xx) &=& \MM(\XX(\xx)) \cdot \det \frac{\partial \XX}{\partial \xx}\\
+		s(\xx) &=& s_0(\XX(\xx)) \cdot \det \frac{\partial \XX}{\partial \xx}\\
+		F^i_I(\xx) &=& \frac{\partial x^i}{\partial X^I}\Big|_{\XX(\xx)}
+	\end{eqnarray}
+\end{subequations}
+of local mass density (per volume $\dx$), momentum density, entropy density and the deformation tensor. 
+
+The goal is to project the Lagrangian Poisson bracket \eqref{eq.PB.L} to an Eulerian Poisson bracket by letting the functionals depend only on the Eulerian fields \eqref{eq.x.E}. After rather lengthy calculation (Appendix \ref{sec.L-E}) we obtain the Poisson bracket
+\begin{eqnarray}\label{eq.PB.Eu}
+	\{F,G\}^{(Eulerian)} &=& \{F,G\}^{(FM)} + \int\dx F^j_I \left(\frac{\delta F}{\delta F^i_I} \partial_j \frac{\delta G}{\delta m_i}-\frac{\delta G}{\delta F^i_I} \partial_j \frac{\delta F}{\delta m_i}\right)\nonumber\\
+	&&-\int\dx \partial_k F^i_I \left(\frac{\delta F}{\delta F^i_I} \frac{\delta G}{\delta m_k}-\frac{\delta G}{\delta F^i_I} \frac{\delta F}{\delta m_k}\right),
+\end{eqnarray}
+where $\{F,G\}^{(FM)}$ stands for the Poisson bracket of fluid mechanics,
+\begin{multline}
+	\{F,G\}^{(FM)} = \int\dx \rho (\partial_i F_\rho G_{m_i}-\partial_i G_\rho F_{m_i})\\
+	+ \int\dx m_i (\partial_j F_{m_i} G_{m_j}-\partial_j G_{m_i} F_{m_j})\\
+	+ \int\dx s (\partial_i F_s G_{m_i}-\partial_i G_s F_{m_i}).
+\end{multline}
+For brevity the functional derivatives are denoted by subscript hereafter, e.g. $\frac{\delta F}{\delta \rho} = F_\rho$.
+Bracket \eqref{eq.PB.Eu} is certainly a Poisson bracket, i.e. fulfills criteria \eqref{eq.PB.prop}, since it has been obtained by projection of Poisson brackets (see e.g. \cite{PhysD-hierarchy}). The bracket is compatible with Poisson bivector 5.12a of \cite{Markus2009}, and it expresses kinematics of the Eulerian state variables consisting of the state variables of fluid mechanics ($\rho$, $\mm$ and $s$) and the deformation tensor $\FF(\xx)$.
+
+The reversible evolution equations implied by bracket \eqref{eq.PB.Eu} are
+\begin{subequations}\label{eq.evo.Eu}
+\begin{eqnarray}
+	\partial_t \rho &=& -\partial_i(\rho E_{m_i})\\
+	\partial_t m_i &=& -\rho\partial_i E_\rho - m_j \partial_i E_{m_j} -s \partial_i E_s - F^j_J\partial_i E_{F^j_J} \nonumber\\
+	&&+\partial_j(F^j_I E_{F^i_I} + F^i_I E_{F^i_I})\\
+	\partial_t s &=& -\partial_i (s E_{m_i})\\
+	\partial_t F^i_I &=& -E_{m_k}\partial_k F^i_I + \partial_j E_{m_i} F^j_I,
+\end{eqnarray}
+	where the energy $E=\int\dx e(\rho,\mm,s,\FF)$ still remains to be specified. Note that the total momentum is of course conserved, since the first line in the evolution equation for $m_i$ can be rewritten as gradient of generalized pressure $\partial_i p$ for 
+	\begin{equation}
+		p = -e + \rho \frac{\partial e}{\partial \rho} + m_j \frac{\partial e}{\partial m_j}+ s\frac{\partial e}{\partial s} + F^i_I \frac{\partial e}{\partial F^i_I}.
+	\end{equation}
+\end{subequations}
+Total energy density $e$ can be prescribed as
+\begin{equation}
+	e = \frac{\mm^2}{2\rho} + \eps(\rho,s,F),
+\end{equation}
+where $\eps$ is the elastic and internal energy. In particular, $E_\mm = \mm/\rho = \vv$ becomes the velocity. The evolution equation for the deformation tensor then gets the explicit form
+\begin{equation}
+	\partial_t \FF = -(\vv\cdot\nabla) \FF + \nabla \vv \cdot \FF,
+\end{equation}
+which is the usual evolution equation for $\FF$ in the Eulerian frame. Equations \eqref{eq.PB.Eu} represent evolution equations for density, momentum density, entropy density and deformation tensor in the Eulerian frame, and they attain an explicit form once total energy density is specified.
+
+
+\subsection{Non-Newtonian fluids}
+Since the Lagrangian configuration is usually irrelevant in the case of fluids (even non-Newtonian), the fluids are often described by state variables $\rho$, $\mm$, $s$ and the left Cauchy-Green tensor
+\begin{equation}
+	B^{ij}(\xx) = F^i_I(\xx) F^j_J(\xx) \delta^{IJ}.
+\end{equation}
+By letting the functionals in bracket \eqref{eq.PB.Eu} depend on these state variables we arrive at Poisson bracket
+\begin{eqnarray}\label{eq.PB.B}
+	\{F,G\}^{(LCG)} &=& \{F,G\}^{(FM)} \nonumber\\
+	&&+ \int\dx \left(F_{B^{ik}}(B^{jk}\partial_j G_{m_i}+B^{ji}\partial_j G_{m_k})-G_{B^{ik}}(B^{jk}\partial_j G_{m_i}+B^{ji}\partial_j F_{m_k})\right)\nonumber\\
+	&&-\int\dx \partial_j B^{ik}(F_{B^{ik}}G_{m_j}-G_{B^{ik}}F_{m_j}),
+\end{eqnarray}
+which expresses kinematics of fields $\rho$, $\mm$, $s$ and $\BB$.
+Details of the calculation can be found in Appendix \ref{sec.F-B}.
+
+The evolution equations generated by bracket \eqref{eq.PB.B} are
+\begin{subequations}
+	\begin{eqnarray}
+	\partial_t \rho &=& -\partial_i(\rho E_{m_i})\\
+	\partial_t m_i &=& -\rho\partial_i E_\rho - m_j \partial_i E_{m_j} -s \partial_i E_s - B^{jk}\partial_i E_{B^{jk}} \nonumber\\
+	&&+\partial_i(B^{jk}E_{B^{jk}}) + \partial_j(B^{jk}(E_{B^{ik}}+E_{B^{ki}}))\\
+	\partial_t B^{ik} &=& -v^j \partial_j B^{ik} + B^{jk}\partial_j v^i + B^{ji}\partial_j v^k\\
+	\partial_t s &=& -\partial_i(s E_{m_i}).
+	\end{eqnarray}
+\end{subequations}
+The equation for the left Cauchy-Green tensor can be rewritten as $\stackrel{\nabla}{\BB}=0$, i.e. the upper-convected derivative of $\BB$ be equal to zero. Moreover, once the dependence of energy on the state variables is specified, the stress is determined and the equations get an explicit form, see e.g. \cite{PKG}.
+
+
+\subsection{Eulerian nonlinear elasticity}
+Besides the projection from $\FF$ to $\BB$ one can also carry out transformation of variables from $\FF$ to $\AA = \FF^{-1}$,
+\begin{equation}
+	A^I_i(\xx) = (\FF^{-1}(\xx))^I_i,
+\end{equation}
+by letting the functionals depend only on $\rho$, $\mm$, $s$ and $\AA$, see appendix \ref{sec.F-A} for details.
+
+The resulting Poisson bracket is
+\begin{eqnarray}\label{eq.PB.A}
+	\{F,G\}^{(A)} &=& \{F,G\}^{(FM)} - \int\dx A^L_i (F_{A^L_l} \partial_l G_{m_i}-G_{A^L_l} \partial_l F_{m_i})\nonumber\\
+	&&-\int\dx \partial_i A^L_l (F_{A^L_l}G_{m_i}-G_{A^L_l}F_{m_i}),
+\end{eqnarray}
+which is the Poisson bracket for the distortion, see \cite{SHTC-GENERIC}.
+
+The reversible evolution equations generated by this Poisson bracket are
+\begin{subequations}
+	\begin{eqnarray}
+	\partial_t \rho &=& -\partial_i(\rho E_{m_i})\\
+	\partial_t m_i &=& -\rho\partial_i E_\rho - m_j \partial_i E_{m_j} -s \partial_i E_s - A^L_l\partial_i E_{A^L_l} \nonumber\\
+		&&+\partial_i(A^L_l E_{A^L_l}) - \partial_l(A^L_i F_{A^L_l})\\
+		\partial_t A^L_l &=& -\partial_l (A^L_i E_{m_i}) + (\partial_l A^L_i - \partial_i A^L_l) E_{m_i}\\
+	\partial_t s &=& -\partial_i(s E_{m_i}).
+	\end{eqnarray}
+\end{subequations}
+Again once the energy is specified, the equations acquire an explicit form.
+
+Although the distortion was defined as inverse of the deformation gradient, meaning that $\partial_i A^L_l = \partial_l A^L_i$, we have actually never used this property. This is the crucial point making distortion advantageous, since by including dissipation this condition can be violated, i.e.
+		\begin{equation}
+			\partial_i A^L_j \neq \partial_j A^L_i \qquad \mbox{or}\qquad \nabla\times \AA \neq 0.
+		\end{equation}
+The Lagrangian configuration is then no longer uniquely determined because integration of $\AA$ over a closed loop does not necessarily yield zero, which is how dislocations are naturally incorporated into the mechanics, see \cite{ADER}, \cite{Landau7} or Sec. \ref{sec.plasticity}.
+
+It is also interesting to note that the form of Poisson bracket \eqref{eq.PB.A} is the only that satisfies Jacobi identity unconditionally, see \cite{SHTC-GENERIC}.
+
+\subsection{Jacobi identity}
+Jacobi identity \eqref{eq.Jacobi} is an inherent property of Poisson brackets, explicit verification of which is usually a formidable task. This difficult was overcame by program \cite{kroeger2010} checking the identity in an automatized way. What is the reason for such interest in Jacobi identity?
+
+\subsubsection{Self-consistency}
+Hamiltonian evolution of state variables $\qq$ can be expressed by Eq. \eqref{eq.qL}, and from the geometric point of view it can be seen as motion in the state space where $\qq$ belongs. The curves $\qq(t)$ are integral curves of the Hamiltonian vector field components of which represent the right hand side of Eq. \eqref{eq.qL}, 
+\begin{equation}
+	\XX_E = L^{ij}E_{x^j} \frac{\partial}{\partial q^i}.
+\end{equation}
+Jacobi identity can be then equivalently rewritten as
+\begin{equation}
+	\Lie_{\XX_E}\LL = 0,
+\end{equation}
+where $\Lie_{\XX_E}$ is the Lie derivative with respect to the Hamiltonian vector field, see appendix \ref{sec.Jacobi.L}. Jacobi identity thus tells that the Poisson bivector $\LL$ does not change along the evolution of the system, and it can be seen as a condition of self-consistency of the reversible Hamiltonian evolution.
+
+\subsubsection{Gauge invariance}
+Consider an infinitesimal transformation of variables $\qq$ generated by a functional $G$ 
+\begin{equation}
+	Q^i = q^i + \eps \{q^i, G\}.
+\end{equation}
+Assume moreover that $G$ is a conserved quantity, i.e.
+\begin{equation}
+	\{G,E\} = 0.
+\end{equation}
+Such transformations are for instance infinitesimal translations, rotations or Galilean boosts \cite{PKG}.
+
+The evolution equations for the transformed variables $\QQ$ are
+\begin{eqnarray}
+	\dot{Q}^i &=& \{Q^i, E\} = \dot{q}^i + \eps\{\{q^i, G\}, E\}\nonumber\\
+	&\stackrel{\mathrm{Jacobi}}{=}& \dot{x}^i - \eps\left(\{\{G, E\}, q^i\}+\{\{E, q^i\}, G\}\right)\nonumber\\
+	&\stackrel{\{G,E\}=0}{=}&\dot{x}^i + \eps\{\dot{q}^i, G\},
+\end{eqnarray}
+which means that the evolution equations for $\QQ$ are obtained by the infinitesimal transformation of $\dot{\qq}$. In other words, the evolution equations are invariant with respect to the infinitesimal transformation. 
+
+Taking $G$ as total momentum, one gets invariance w.r.t. translations, with $G$ as angular momentum one gets invariance w.r.t. rotations and with $G$ as the Galilean booster, one obtains Galilean invariance. Jacobi identity ensures that ingetrals of motion generate symmetries of the evolution equations.
+
+\subsubsection{Hyperbolicity}
+Hyperbolicity is an essential feature of many system in continuum thermodynamics (SHTC, KGB, ...). However, it is not easy to check it when the equations are not in the form of system of conservation laws admitting an extra conservation law (typically energy conservation) - see \cite{SHTC-GENERIC} and the Godunov-Boilat theorem.
+
+It seems possible to infer hyperbolicity just from the Hamiltonian character of the equations. Let us first recall some results by Tsareev, Novikov and Dubrovin \cite{Tsarev} and \cite{Novikov}. 
+Consider a system of one-dimensional quasilinear evolution equations of first order 
+\begin{equation}\label{eqn.hydro.type}
+	\partial_t q^i = v^i_j(\qq(x)) \partial_x q^j.
+\end{equation}
+This system of equations is referred as of hydrodynamic type. 
+
+A Poisson bracket is of hydrodynamic type if the corresponding Poisson bivector has the form
+\begin{equation}
+	L^{ij} = \{q^i(x),q^j(y)\} = g^{ij}(\qq(x)) \delta'(x-y) + b^{ij}_k (\qq(x)) \partial_x q^k \delta(x-y).
+\end{equation}
+Energy is of hydrodynamic type if it is integral of a function of the state variables, 
+\begin{equation}
+	E = \int \diff x e(\qq(x)).
+\end{equation}
+The evolution equations generated by a hydrodynamic-type Poisson bracket and hydrodynamic-type energy are also of hydrodynamic type with the matrix
+\begin{equation}
+	v^l_k = g^{lj} \frac{\partial^2 e}{\partial q^j \partial q^k} + b^{lj}_k \frac{\partial e}{\partial q^j}
+\end{equation}
+as follows by direct calculation.
+The Poisson brackets discussed in this paper are all of hydrodynamic type.
+
+It was shown in \cite{Novikov} that
+\begin{enumerate}
+\item Under local changes $\qq = \qq(\QQ)$ the coefficient $g^{ij}$ in the bracket
+		Poisson bracket is transformed as a tensor with upper indices; if $\det g^{ij} \neq 0$, then the expression
+		$b^{ij}_k = -g^{is}\Gamma^j_{sk}$ is transformed so that $\Gamma^j_{sk}$ is the Christoffel symbol of a differential
+geometric connection.
+\item  For the Poisson bivector to be antisymmetric it is necessary and sufficient that the
+	tensor $g^{ij}$ be symmetric (i.e., define a pseudo-Riemannian metric, if $\det g^{ij} \neq 0$) and
+		the connection $\Gamma^i_{jk}$ be compatible with the metric: $\nabla_k g^{ij} = 0$.
+	\item  For the bracket to satisfy Jacobi identity it is necessary and sufficient (in the case $\det g^{ij} \neq 0 $) that the connection $\Gamma^{j}_{sk}$ be torsion free and the curvature tensor be zero.
+\end{enumerate}
+Assuming the non-degenerate case, it follows that the matrix $v^l_k$ can be rewritten as
+\begin{equation}
+	v^l_k = g^{ls}\nabla_s \nabla_k e,
+\end{equation}
+where $\nabla$ stands for the covariant derivative with Christofel symbols from point 1 above.
+
+Now, assuming the energy be convex, the matrix $e_{sk}\equiv \nabla_s \nabla_k e$ should be positive semidefinite and symmetric (due to that there is neither torsion nor curvature). The evolution equation then becomes
+\begin{equation}
+	\partial_t q^i = g^{ij} e_{jk}\partial_x q^k.
+\end{equation}
+Upon the substitution $q^i(\QQ)$ such that $\frac{\partial q^i}{\partial Q_j} = g^{ij}$, system \eqref{eqn.hydro.type} can be rewritten as a symmetric quasilinear system
+\begin{equation}
+	g^{ij}\partial_t Q_j = g^{ij} e_{jk} g^{kl} \partial_x Q_l.
+\end{equation}
+\IP{This looks promising but unfortunately $g^{ij}$ has to be either positive-definite $g^{ij}>0$ or negative-definite $g^{ij}<0$ but not semi-definite.}
+
+
+
+\subsubsection{Criterion when constructing Poisson brackets}
+Jacobi identity is also useful as a decisive criterion when choosing between several possible forms of a Poisson bracket. For instance in \cite{Markus2009} it led to the identification of coupling between the mechanics of the Eulerian deformation tensor $\FF(\xx)$ and fluid mechanics. Similarly, in \cite{SHTC-GENERIC}  bracket \eqref{eq.PB.A} is derived by projection from a simpler bracket for fluid mechanics with labels (distortion being spatial gradient of labels). By adding terms to the bracket that are zero for compatible distortion matrices ($\nabla\times\AA=0$) Jacobi identity becomes valid unconditionally (even with incompatible distortion), and bracket \eqref{eq.PB.A} is recovered.
+
+In \cite{Miroslav-Grad} the Poisson bracket for the infinite Grad hierarchy in kinetic theory was formulated. Projection for instance to the first ten moments (fluid mechanics and the matrix of second moments) does not end up in a closed form. Jacobi identity can be seen as a closure criterion so that the resulting evolution equations become objective.
+
+
+\section{Continuum thermodynamics = Mechanics + Dissipation}
+
+\subsection{Symmetric hyperbolic thermodynamically compatible (SHTC) equations}
+Ilya, could you please review SHTC within the context of what has been written above?
+
+\subsection{Non-Newtonian fluids}
+Maxwell model with $\BB$ as in \cite{PKG}.
+
+\subsection{Newtonian fluids}
+Within SHTC. Or by reduction from $\BB$.
+
+\subsection{Plasticity}\label{sec.plasticity}
+According to Markus and Ilya. 
+
+\section{Conclusion}
+
+\section*{Acknowledgment}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\renewcommand{\refname}{\spacedlowsmallcaps{References}} % For modifying the bibliography heading
+
+\bibliographystyle{unsrt}
+
+\bibliography{library.bib} % The file containing the bibliography
+
+%----------------------------------------------------------------------------------------
+
+\appendix
+\section{Functional derivatives}\label{sec.FD}
+The purpose of this section is to recall the concept of functional derivative. Consider a functional $F$ of field $f(\XX)$ that is Frechet differentiable, i.e. 
+\begin{equation}
+	F(f+\delta f) = F(f) +  DF|_f (\delta f) + \OBig(\delta f)^2,
+\end{equation}
+where $\delta f \in C^\infty_0$ is a variation with compact support (zero at the boundaries).
+The Frechet differential is then equal to the Gateaux derivative
+\begin{equation}
+	\frac{\diff}{\diff \lambda}\Big|_{\lambda = 0} F(f+\lambda \delta f) = DF|_f (\delta f).
+\end{equation}
+Since the Frechet differential is linear in its argument $(\bullet)$, it can be seen as an element of the dual space to $\delta f$, which is the space of distributions $\mathcal{D}'$. Therefore, it can be represented by 
+\begin{equation}
+	DF_f(\delta f) = \int\dX \frac{\delta F}{\delta f} \delta f,
+\end{equation}
+where the integral is understood as a notational shorthand for duality in the distributional sense $\langle\bullet,\bullet\rangle$. By combining the last two equalitites, we obtain
+\begin{equation}
+	\frac{\diff}{\diff \lambda}\Big|_{\lambda = 0} F(f+\lambda \delta f) 
+	=  \int\dX \frac{\delta F}{\delta f} \delta f,
+\end{equation}
+which is the usual way for calculation of functional derivatives.
+
+For instance if $F$ is integral of a smooth real-valued function $g(f)$ of field $f(\XX)$, the functional derivative becomes
+\begin{equation}
+	\frac{\delta}{\delta f}\int \dX g(f(\XX)) = g'(f(\XX)),
+\end{equation}
+which is just the ordinary derivative of $g$. 
+
+If the functional depends on gradient of $f$, we have to carry out integration by parts (recalling that $\delta f$ vanishes at the boundaries), e.g.
+\begin{equation}
+	\frac{\delta}{\delta f}\int \dX \frac{1}{2}\nabla_\XX f(\XX) \cdot \nabla_\XX f(\XX) = -\nabla_\XX \cdot (\nabla_\XX f).
+\end{equation}
+
+\section{From Lagrange to Euler}\label{sec.L-E}
+The purpose of this rather technical Appendix is to show in detail how the Eulerian bracket \eqref{eq.PB.Eu} is obtained from the Lagrangian canonical bracket \eqref{eq.PB.L}. The latter bracket expresses kinematics of fields $\xx(\XX)$ and $\MM(\XX)$, while the former bracket has only Eulerian state variables $\rho(\xx)$, $\mm(\xx)$, $s(\xx)$ and $\FF(\xx)$.
+
+Before carrying out the actual transformation, we make a few observations about the mapping $\xx(\XX)$ and its inverse $\XX(\xx)$ and their behavior with respect to perturbations $\delta \xx(\XX)$. Firstly, we see that
+\begin{equation}\label{eq.xX}
+	(\xx(\XX) + \delta\xx(\XX))\circ \XX(\xx-\delta \xx(\XX(\xx))) = \xx -\delta\xx(\XX(\xx)) + \delta\xx(\XX(\xx)) + \OBig(\delta\xx)^2
+= \xx + \OBig(\delta\xx)^2,
+\end{equation}
+which helps when calculating functional derivatives with respect to $\xx(\XX)$.
+
+The functional derivatives of the Eulerian fields with respect to the Lagrangian fields are necessary to perform the projection. Let us start with the Lagrangian density in the Eulerian frame, $\rho_0(\xx)\stackrel{def}{=}\rho_0(\XX(\xx))$. This notation is used throughout this appendix. To find functional derivative of $\rho_0(\xx)$ with respect to $\xx(\XX)$ we study 
+\begin{equation}
+	\rho_0(\xx;\xx+\delta\xx)\stackrel{def}{=} \rho_0(\XX(\xx)+\delta\XX(\xx)),
+\end{equation}
+where $\delta\XX(\xx)$ is the perturbation of mapping $\XX(\xx)$ induced by perturbation $\delta\xx(\XX)$. Using relation \eqref{eq.xX}, we obtain 
+\begin{eqnarray}
+	\rho_0(\xx,\xx+\delta\xx) &=& \rho_0(\XX(\xx-\delta\xx(\XX(\xx)))) = \rho_0(\xx-\delta\xx(\XX(\xx)))\nonumber\\
+	&=&\rho_0(\xx)-\partial_k \rho_0(\xx) \delta x^k(\XX(\xx))\nonumber\\
+	&=&\rho_0(\xx)+\int\dX \left(-\partial_k \rho_0(\xx) \delta(\XX-\XX(\xx))\right)\delta x^k(\XX),
+\end{eqnarray}
+which means that
+\begin{equation}\label{eq.rho0x}
+	\frac{\delta \rho_0(\xx)}{\delta x^k(\XX)} = -\partial_k \rho_0(\xx) \delta(\XX-\XX(\xx)).
+\end{equation}
+
+\subsection{Derivative of the Eulerian deformation tensor $\FF(\xx)$}
+The Eulerian density $\rho(\xx)$ is equal to $\rho_0(\xx)$ multiplied by Jacobian of the mapping $\XX(\xx)$, and so to acquire the functional derivative of $\rho(\xx)$ we have to first  deal with functional derivative of the Eulerian deformation tensor
+\begin{equation}
+	\FF(\xx)\stackrel{def}{=}\frac{\partial \xx}{\partial \XX}\Big|_{\XX(\xx)}.
+\end{equation}
+Using again relation \eqref{eq.xX} we have
+\begin{eqnarray}
+	F^i_I(\xx;\xx+\delta\xx) &\stackrel{def}{=}&\frac{\partial x^i(\XX) +\delta x^i(\XX)}{\partial X^I}\Big|_{\XX(\xx-\delta\xx(\XX(\xx)))}\\
+	&=&\frac{\partial x^i}{\partial X^i}\Big|_{\XX(\xx-\delta\xx(\XX(\xx)))} + \frac{\partial \delta x^i}{\partial X^i}\Big|_{\XX(\xx)}+\OBig(\delta\xx)^2\nonumber\\
+	&=&\int\dX\delta(\XX-\XX(\xx)) \frac{\partial \delta x^i}{\delta X^I} +\underbrace{\frac{\partial x^i}{\partial X^I}\Big|_{\XX(\xx)}}_{=F^i_I(\xx)} -\partial_k F^i_I(\xx)\delta x^k(\XX(\xx)) + \OBig(\delta\xx)^2\nonumber\\
+	&=&F^i_I(\xx) - \int\dX\frac{\partial \delta(\XX-\XX(\xx))}{\partial X^I}\delta x^i(\XX) -\int\dX\partial_k F^i_I(\xx)\delta(\XX-\XX(\xx))\delta x^k(\XX),\nonumber
+\end{eqnarray}
+which means that the sought functional derivative reads
+\begin{equation}
+	\frac{\delta F^i_I(\xx)}{\delta x^k(\XX)} = 
+	- \frac{\partial \delta(\XX-\XX(\xx))}{\partial X^I}\delta^i_k -\partial_k F^i_I(\xx)\delta(\XX-\XX(\xx)).
+\end{equation}
+
+\subsection{Derivative of the Eulerian mass density $\rho(\xx)$}
+Now we can finish the calculation of the functional derivative of the Eulerian density $\rho(\xx)$ with respect to $\xx(\XX)$. The first part, derivative of $\rho_0(\xx)$, has already been obtained before in Eq. \eqref{eq.rho0x}. What remains is to calculate derivative of determinant $\det \FF(\xx)$ with respect to $\xx(\XX)$. 
+
+Considering determinant of a general matrix $\CC$, its variation when the matrix is perturbed by $\delta\CC$ reads
+\begin{equation}
+	\det(\CC+\delta\CC) = \det(\CC)\cdot\det(\Id+\CC^{-1}\cdot\delta\CC) = \det\CC\cdot\Tr(\CC^{-1}\cdot\delta\CC).
+\end{equation}
+Therefore, derivative of $\det(\FF)$ is
+\begin{equation}
+	\frac{\delta \det \FF^{-1}(\xx)}{\delta x^k(\XX)}
+	= -\frac{1}{(\det \FF(\xx))^2} \det \FF(\xx) \frac{\partial X^I}{\partial x^i} \frac{\delta F^i_I(\xx)}{\delta x^k(\XX)}.
+\end{equation}
+
+Derivative of the Eulerian density finally reads
+\begin{eqnarray}
+	\frac{\delta \rho(\xx)}{\delta x^k(\XX)}&=&\frac{\delta \rho_0(\xx)}{\delta x^k(\XX)} \det \frac{\partial \XX}{\partial \xx}
+	-\frac{\rho_0(\xx)}{(\det \FF(\xx))^2} \det \FF(\xx) \frac{\partial X^I}{\partial x^i} \frac{\delta F^i_I(\xx)}{\delta x^k(\XX)}\nonumber\\
+	&=&-\partial_k \rho_0(\xx) \delta(\XX-\XX(\xx))\frac{1}{\det\FF(\xx)}\nonumber\\
+	&&
+	+\frac{\rho_0(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \frac{\partial \delta(\XX-\XX(\xx))}{\partial X^I}\delta^i_k \nonumber\\
+	&&+\frac{\rho_0(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \partial_k F^i_I(\xx)\delta(\XX-\XX(\xx)).
+\end{eqnarray}
+
+\subsection{Derivative of the Eulerian entropy density $s(\xx)$}
+Having calculated derivative of mass density, the result for entropy density $s(\xx)=s_0(\xx)/\det\FF(\xx)$  is analogous,
+\begin{eqnarray}
+	\frac{\delta s(\xx)}{\delta x^k(\XX)}&=&
+	-\partial_k s_0(\xx) \delta(\XX-\XX(\xx))\frac{1}{\det\FF(\xx)}\nonumber\\
+	&&
+	+\frac{s_0(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \frac{\partial \delta(\XX-\XX(\xx))}{\partial X^I}\delta^i_k \nonumber\\
+	&&+\frac{s_0(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \partial_k F^i_I(\xx)\delta(\XX-\XX(\xx)).
+\end{eqnarray}
+
+\subsection{Derivative of the Eulerian momentum density $\mm(\xx)$}
+The functional derivative of $\mm(\xx)=\MM(\XX(\xx))/\det \FF(\xx)$ with respect to $\xx(\XX)$ has the same form as derivatives of $\rho(\xx)$ and $s(\xx)$,
+\begin{eqnarray}
+	\frac{\delta m_l(\xx)}{\delta x^k(\XX)}&=&
+	-\partial_k M_l(\xx) \delta(\XX-\XX(\xx))\frac{1}{\det\FF(\xx)}\nonumber\\
+	&&
+	+\frac{M_l(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \frac{\partial \delta(\XX-\XX(\xx))}{\partial X^I}\delta^i_k \nonumber\\
+	&&+\frac{M_l(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \partial_k F^i_I(\xx)\delta(\XX-\XX(\xx)).
+\end{eqnarray}
+
+But the field $\mm(\xx)$ also depends on the yet unused Lagrangian field $\MM(\XX)$. Derivative with respect to this fields is
+\begin{eqnarray}\label{eq.mM}
+	\frac{\delta m_l(\xx)}{\delta M_k(\XX)} = \delta^k_l \frac{\delta(\XX-\XX(\xx))}{\det\FF(\xx)},
+\end{eqnarray}
+as follows from the formula $\MM(\XX(\xx)) = \int\dX \delta(\XX-\XX(\xx)) \MM(\XX)$.
+
+\subsection{Derivative of an arbitrary Eulerian functional}
+Derivative of an arbitrary smooth enough functional\footnote{Functionals $F$ and $G$ are not used here to avoid confusing with tensor $\FF$.} of the Eulerian fields $C(\rho(\xx), \mm(\xx), s(\xx), \FF(\xx))$ with respect to the Lagrangian field $\xx(\XX)$ can be calculated by chain rule as
+\begin{equation}\label{eq.Cx}
+	\frac{\delta C}{\delta x^k(\XX)} = \int\dx \left(\frac{\delta C}{\delta \rho(\xx)}\frac{\delta \rho(\xx)}{\delta x^k(\XX)}
+	+\frac{\delta C}{\delta m_l(\xx)}\frac{\delta m_l(\xx)}{\delta x^k(\XX)}
+	+\frac{\delta C}{\delta s(\xx)}\frac{\delta s(\xx)}{\delta x^k(\XX)}
+	+\frac{\delta C}{\delta F^i_I(\xx)}\frac{\delta F^i_I(\xx)}{\delta x^k(\XX)}\right).
+\end{equation}
+Similarly derivative of an arbitrary functional $D(\rho(\xx), \mm(\xx), s(\xx), \FF(\xx))$ with respect to the Lagrangian $\MM(\XX)$ field is
+\begin{equation}
+	\frac{\delta D}{\delta M_k(\XX)} = \int\dx \frac{\delta D}{\delta m_l(\xx)}\frac{\delta m_l(\xx)}{\delta M_k(\XX)},
+\end{equation}
+which, using Eq. \eqref{eq.mM}, can be rewritten more explicitly as
+\begin{eqnarray}
+	\frac{\delta D}{\delta M_k(\XX)} &=& \int\dx \frac{\delta D}{\delta m_l(\xx)}\delta^k_l \frac{\delta(\XX-\XX(\xx))}{\det\FF(\xx)}\nonumber\\
+	&=& \int\dx \frac{\delta D}{\delta m_k(\xx)}\delta(\XX-\XX(\xx))\det\frac{\partial \XX}{\partial \xx}.
+\end{eqnarray}
+The $\delta-$distribution can be seen as the limit of a sequence of smooth functions (e.g. Gaussians), $f_n(\xx)\stackrel{\mathcal{D}'}{\to}\delta(\xx)$. Therefore, the last integral can be rewritten as
+\begin{eqnarray}
+	\frac{\delta D}{\delta M_k(\XX)} &=& \lim_{n\to\infty}\int\dx \frac{\delta D}{\delta m_k(\xx)}f_n(\XX-\XX(\xx)) \det\frac{\partial \XX}{\partial \xx}\nonumber\\
+	&=& \lim_{n\to\infty}\int\dX' \frac{\delta D}{\delta m_k(\xx)}\Big|_{\xx(\XX')} f_n(\XX-\XX(\xx(\XX'))) \nonumber\\
+	&=& \int\dX' \frac{\delta D}{\delta m_k(\xx)}\Big|_{\xx(\XX')} \lim_{n\to\infty}f_n(\XX-\XX') 
+	= \int\dX' \frac{\delta D}{\delta m_k(\xx)}\Big|_{\xx(\XX')} \delta(\XX-\XX') \nonumber\\
+	&=&\frac{\delta D}{\delta m_k(\xx)}\Big|_{\xx(\XX)}.
+\end{eqnarray}
+Now we are finally in position to calculate the Lagrangian Poisson bracket Eq. \eqref{eq.PB.L} for the Eulerian functionals $C$ and $D$. 
+
+\subsection{The Eulerian Poisson bracket}
+Bracket \eqref{eq.PB.L} is the sum of terms like
+\begin{equation}
+	\int\dX \frac{\delta C}{\delta x^k(\XX)} \frac{\delta D}{\delta M_k(\XX)},
+\end{equation}
+where the former functional derivative consists of all terms in Eq. \eqref{eq.Cx}. Let us thus first take only the term with derivative $C_{\rho(\xx)}$,
+\begin{eqnarray}
+	\int\dX \int\dx \frac{\delta C}{\delta \rho(\xx)}&&
+	\left[
+		-\partial_k \rho_0(\xx) \delta(\XX-\XX(\xx))\frac{1}{\det\FF(\xx)}\right.\nonumber\\
+	&&
+	+\frac{\rho_0(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \frac{\partial \delta(\XX-\XX(\xx))}{\partial X^I}\delta^i_k \nonumber\\
+	&&\left.+\frac{\rho_0(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \partial_k F^i_I(\xx)\delta(\XX-\XX(\xx))\right]
+\frac{\delta D}{\delta m_k(\xx)}\Big|_{\xx(\XX)}\nonumber\\
+	&=& \int\dx \frac{\delta C}{\delta \rho(\xx)}\left[
+		-\partial_k \rho_0(\xx)\det\FF^{-1}(\xx)\frac{\delta D}{\delta m_k(\xx)} \right.\nonumber\\
+		&&-\rho_0(\xx) \partial_k \det \FF^{-1}(\xx)\frac{\delta D}{\delta m_k(\xx)} \nonumber\\
+		&&\left.-\frac{\rho_0(\xx)}{\det \FF(\xx)} \frac{\partial X^I}{\partial x^i} \int\dX \delta(\XX-\XX(\xx))\frac{\partial}{\partial X^I}\frac{\delta D}{\delta m_i(\xx)}\Big|_{\xx(\XX)}\right]\nonumber\\
+	&=&\int\dx \frac{\delta C}{\delta \rho(\xx)}\left[-\partial_k \rho(\xx)\frac{\delta D}{\delta m_k(\xx)}\right.\nonumber\\
+	&&\left.\qquad -\rho(\xx) \partial_i \frac{\delta D}{\delta m_i(\xx)}\right]\nonumber\\
+	&=& \int\dx \rho(\xx)\partial_i \frac{\delta C}{\delta \rho(\xx)} \frac{\delta D}{\delta m_i(\xx)},
+\end{eqnarray}
+which is obviously a part of the final Eulerian Poisson bracket \eqref{eq.PB.Eu}. In the same fashion we obtain
+\begin{equation}
+	\int\dX \int\dx \frac{\delta C}{\delta m_l(\xx)} \frac{\delta m_l(\xx)}{\delta x^k(\XX)} \frac{\delta D}{\delta M_k(\XX)}
+	= \int\dx m_i(\xx)\partial_j \frac{\delta C}{\delta m_i(\xx)} \frac{\delta D}{\delta m_j(\xx)}
+\end{equation}
+and
+\begin{equation}
+	\int\dX \int\dx \frac{\delta C}{\delta s(\xx)} \frac{\delta s(\xx)}{\delta x^k(\XX)} \frac{\delta D}{\delta M_k(\XX)}
+	= \int\dx s(\xx)\partial_j \frac{\delta C}{\delta s(\xx)} \frac{\delta D}{\delta m_j(\xx)}.
+\end{equation}
+So far we have recovered the $\{C,D\}^{(FM)}$ part of the bracket (the antisymmetric part is obtained as negative of the same terms with $C$ and $D$ swapped).
+
+The part dependent on the Eulerian deformation tensor $\FF(\xx)$ is calculated similarly as follows.
+\begin{align}
+	&\int\dX \int\dx \frac{\delta C}{\delta F^i_I(\xx)} \frac{\delta F^i_I(\xx)}{\delta x^k(\XX)} \frac{\delta D}{\delta M_k(\XX)}\nonumber\\
+	&\qquad=\int\dX \int\dx \frac{\delta C}{\delta F^i_I(\xx)}\left[
+	- \frac{\partial \delta(\XX-\XX(\xx))}{\partial X^I}\delta^i_k
+	-\partial_k F^i_I(\xx)\delta(\XX-\XX(\xx))\right]\frac{\delta D}{\delta m_k(\xx)}\Big|_{\xx(\XX)}\nonumber\\
+&\qquad=\int\dx  \frac{\delta C}{\delta F^i_I(\xx)}\left[
+	\int\dX \delta(\XX-\XX(\xx)) \frac{\partial}{\partial X^I}\frac{\delta D}{\delta m_i(\xx)}\Big|_{\xx(\XX)}
+	-\partial_k F^i_I(\xx)\frac{\delta D}{\delta m_k(\xx)}\right]\nonumber\\
+&\qquad=\int\dx  \frac{\delta C}{\delta F^i_I(\xx)}\left[
+	\frac{\partial x^j}{\partial X^I}\Big|_{\XX(\xx)}\frac{\partial}{\partial x^j}\frac{\delta D}{\delta m_i(\xx)}
+	-\partial_k F^i_I(\xx)\frac{\delta D}{\delta m_k(\xx)}\right]\nonumber\\
+&\qquad=\int\dx  \frac{\delta C}{\delta F^i_I(\xx)}\left(F^j_I(\xx)\partial_j \frac{\delta D}{\delta m_i(\xx)}
+	-\partial_k F^i_I(\xx)\frac{\delta D}{\delta m_k(\xx)}\right),
+\end{align}
+which is the remaining part of bracket \eqref{eq.PB.Eu}. 
+
+In summary, Eulerian Poisson bracket \eqref{eq.PB.Eu}, which expresses kinematics of fields $\rho(\xx)$, $\mm(\xx)$, $s(\xx)$ and $\FF(\xx)$, has been derived by projection from the Lagrangian canonical Poisson bracket \eqref{eq.PB.L}, expressing kinematics of $\xx(\XX)$ and $\MM(\XX)$.
+
+
+
+\section{From deformation tensor to the Left Cauchy-Green tensor}\label{sec.F-B}
+Derivative of the left Cauchy-Green tensor $\BB(\xx)$ with respect to the Eulerian deformation tensor is
+\begin{equation}
+	\frac{\partial B^{ij}(\xx)}{\partial F^k_K} = \delta^{IJ}(\delta^i_k \delta^K_I F^j_J +  F^i_I \delta^j_k \delta^K_J)
+	= \delta^{KJ}\delta^i_k F^j_J +  \delta^{IK} F^i_I \delta^j_k.
+\end{equation}
+Derivative of a functional $C(\FF)$ then becomes
+\begin{equation}
+	\frac{\delta C}{\delta F^k_K(\xx)} = 
+	\frac{\delta C}{\delta B^{kj}(\xx)}\delta^{KJ} F^j_J +  \frac{\delta C}{\delta B^{ik}(\xx)}\delta^{IK} F^i_I,
+\end{equation}
+and after plugging this relation into bracket \eqref{eq.PB.Eu} we obtain bracket \eqref{eq.PB.B} easily.
+
+
+\section{From deformation tensor to distortion}\label{sec.F-A}
+The purpose of this section is to show more details on the projection from bracket \eqref{eq.PB.Eu} to bracket \eqref{eq.PB.A}, expressing kinematics of distortion. The distortion is the inverse of the Eulerian deformation tensor $\FF(\xx)$, 
+\begin{equation}
+	A^I_i(\xx) F^j_I(\xx) = \delta^j_i.
+\end{equation}
+Taking derivative of this equality with respect to $F^k_K(\xx)$ leads to
+\begin{equation}
+	\frac{\partial A^I_i}{\partial F^k_K} F^j_I = -A^K_i \delta^j_k.
+\end{equation}
+After multiplication by $A^J_j$ we obtain
+\begin{equation}
+	\frac{\partial A^L_l}{\partial F^j_J} = -A^J_l A^L_j,
+\end{equation}
+from which it follows that 
+\begin{equation}
+	\frac{\delta C}{\delta F^j_J} = \frac{\delta C}{\delta A^L_l(\xx)} \frac{\partial A^L_l}{\partial F^j_J} = -\frac{\delta C}{\delta A^L_l} A^J_l A^L_j
+\end{equation}
+for arbitrary functional $C(\FF)$.
+
+Plugging this last relation into bracket \eqref{eq.PB.Eu} immediatly leads to bracket \eqref{eq.PB.A}.
+
+\section{Jacobi identity through Lie derivative}\label{sec.Jacobi.L}
+TODO, see e.g. \cite{Fecko}.
+
+\end{document}
