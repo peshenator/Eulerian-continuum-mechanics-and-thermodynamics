@@ -30,6 +30,9 @@ BCOR5mm, % Binding correction
 
 \input{structure.tex} % Include the structure.tex file which specified the document structure and layout
 
+\usepackage{hyperref}
+\usepackage{relsize} % e.g. used for \mathsmaller
+
 \newcommand{\xx}{\mathbf{x}}
 \newcommand{\XX}{\mathbf{X}}
 \newcommand{\XXX}{\mathbb{X}}
@@ -52,7 +55,22 @@ BCOR5mm, % Binding correction
 \newcommand{\LL}{\mathbf{L}}
 \newcommand{\Lie}{\mathfrak{L}}
 
+\newcommand{\MP}[1]{{\color{Green}MP:\ \ #1}}
 \newcommand{\IP}[1]{{\color{Red}IP:\ \ #1}}
+\newcommand{\MH}[1]{{\color{Red}MH:\ \ #1}}
+
+\newcommand{\sA}{\mathsmaller A}
+\newcommand{\sB}{\mathsmaller B}
+\newcommand{\sC}{\mathsmaller C}
+\newcommand{\sD}{\mathsmaller D}
+\newcommand{\sM}{\mathsmaller M}
+\newcommand{\sN}{\mathsmaller N}
+\newcommand{\sL}{\mathsmaller L}
+
+\newcommand{\pd}{\partial}
+\newcommand{\F}[2]{F^{\ #1}_{\mathsmaller#2}}
+\newcommand{\hatF}[2]{\hat{F}^{\ #1}_{\mathsmaller#2}}
+\newcommand{\A}[2]{A^{\mathsmaller#1}_{\ #2}}
 
 
 \hyphenation{Fortran hy-phen-ation} % Specify custom hyphenation points in words with dashes where you would like hyphenation to occur, or alternatively, don't put any dashes in a word to stop hyphenation altogether
@@ -71,7 +89,6 @@ BCOR5mm, % Binding correction
 
 %----------------------------------------------------------------------------------------
 
-\usepackage{hyperref}
 
 \begin{document}
 
@@ -182,15 +199,20 @@ as well as
 \begin{equation}
 	\dot{F}(\xx(\XX),\MM(\XX)) = \int\dX \left(\frac{\delta F}{\delta x^i} \partial_t x^i + \frac{\delta F}{\delta M_i} \partial_t M_i \right).
 \end{equation}
+\IP{In GENERIC, how do we distinguish between $ \pd_t $ being the material time derivative or 
+Eulerian time 
+derivative?}
+
 By comparing these two equalities, we can conclude that the evolution equations for $\xx$ and $\MM$ are
 \begin{subequations}\label{eq.L.evo}
 	\begin{eqnarray}
 		\partial_t x^i(\XX) &=& \frac{\delta E}{\delta M_i(\XX)}\\
 		\partial_t M_i(\XX) &=& -\frac{\delta E}{\delta x^i(\XX)}
 	\end{eqnarray}
-	for any energy $E(\xx,\MM)$. 
 \end{subequations}
-This is a way to obtain evolution equations from a Poisson bracket. An another (equivalent) way is to write the evolution equations for state variables $\qq$ as
+	for any energy $E(\xx,\MM)$. 
+This is a way to obtain evolution equations from a Poisson bracket. An another (equivalent) way is 
+to write the evolution equations for state variables $\qq$ as
 \begin{equation}\label{eq.qL}
 	\dot{q}^i = \{q^i, E\} = L^{ij} \frac{\delta E}{\delta q^j}.
 \end{equation}
@@ -205,8 +227,17 @@ where the first term denotes the kinetic energy and the second elastic energy (d
 		\partial_t x^i(\XX) &=& \frac{\delta^{ij} M_j}{\rho_0}\\
 		\partial_t M_i(\XX) &=& \frac{\partial}{\partial X^I}\left(\rho_0 \frac{\partial W}{\partial \frac{\partial x^i}{\partial X^I}}\right)
 	\end{eqnarray}
-	for any energy $E(\xx,\MM)$. The metric tensor $\delta^{ij}$ can be thought of as equal to the unit matrix in the Euclidean space endowed with Cartesian coordinates. Note that the Einstein summation convention is employed and that the capital index denotes coordinates in the Lagrangian frame. Also apart form the field $\rho_0(\XX)$ the energy can depend on the field of entropy density $s_0(\XX)$ (per volume $\dX$) to cope with non-isothermal bodies. Equations \eqref{eq.L.evo.fin} are the reversible evolution equations for a continous body with stored energy $W(\nabla_\XX \xx)$ in the Lagrangian frame, which are to be solved when initial and boundary conditions are supplied. 
 \end{subequations}
+	for any energy $E(\xx,\MM)$. The metric tensor $\delta^{ij}$ can be thought of as equal to the 
+	unit matrix in the Euclidean space endowed with Cartesian coordinates. Note that the Einstein 
+	summation convention is employed and that the capital index denotes coordinates in the 
+	Lagrangian frame. Also apart form the field $\rho_0(\XX)$ the energy can depend on the field of 
+	entropy density $s_0(\XX)$ (per volume $\dX$) to cope with non-isothermal bodies. Equations 
+	\eqref{eq.L.evo.fin} are the reversible evolution equations for a continous body with stored 
+	energy $W(\nabla_\XX \xx)$ in the Lagrangian frame, which are to be solved when initial and 
+	boundary conditions are supplied. 
+
+
 
 However, it is often preferable to formulate the evolution equations in the Eulerian frame because (i) the Lagrangian configuration may be inaccessible (as in the case of fluids) and (ii) conservation laws are directly at hand in the Eulerian frame and so it is clearer how to add dissipative terms to the evolution equations. The complementary equations in the Eulerian frame are shown in the next section.
 
@@ -415,6 +446,105 @@ Upon the substitution $q^i(\QQ)$ such that $\frac{\partial q^i}{\partial Q_j} = 
 Jacobi identity is also useful as a decisive criterion when choosing between several possible forms of a Poisson bracket. For instance in \cite{Markus2009} it led to the identification of coupling between the mechanics of the Eulerian deformation tensor $\FF(\xx)$ and fluid mechanics. Similarly, in \cite{SHTC-GENERIC}  bracket \eqref{eq.PB.A} is derived by projection from a simpler bracket for fluid mechanics with labels (distortion being spatial gradient of labels). By adding terms to the bracket that are zero for compatible distortion matrices ($\nabla\times\AA=0$) Jacobi identity becomes valid unconditionally (even with incompatible distortion), and bracket \eqref{eq.PB.A} is recovered.
 
 In \cite{Miroslav-Grad} the Poisson bracket for the infinite Grad hierarchy in kinetic theory was formulated. Projection for instance to the first ten moments (fluid mechanics and the matrix of second moments) does not end up in a closed form. Jacobi identity can be seen as a closure criterion so that the resulting evolution equations become objective.
+
+\section{Lagrangian mechanics}\label{sec.Lagr.mech}
+\IP{This section is just for a discussion. Here, I discuss three Eulerian equations \\
+1) PDE for $F$\\
+2) PDE for $A$\\
+3) PDe for $\hat{F}$\\
+and relations between them}
+
+\subsection{On equivalence of PDEs for $ F $ and $ A $}
+
+Consider the mapping $x^b$
+
+Consider the mapping $x^a(X^\sA)$, $a=0,1,2,3$, $\sA=0,1,2,3$ such that $x^0=t$ is the Eulerian 
+time and $X^0 = \tau$ is the Lagrangian time, but we shall assume non-relativistic settings and 
+hence 
+$t=\tau$. 
+
+The 4-velocity field is 
+\begin{equation}
+    u^a = \frac{\pd x^a}{\pd \tau} = \frac{\pd x^a}{\pd X^0}  = \F{a}{0},
+\end{equation}
+or $ u^a = (1,v^1,v^2,v^3) $.
+
+The Lagrangian equation for $ \F{a}{A} $ is just the identity
+\begin{equation}\label{eqn.F.4d}
+\pd_\sA (\pd_\sB x^a) - \pd_\sB (\pd_\sA x^a) = \pd_\sA \F{a}{B} - \pd_\sB \F{a}{A} = 0,
+\end{equation}
+where $ \pd_\sA = \frac{\pd}{\pd X^\sA} $. Thus, if we consider the $ 0 $-th ($ \sA=0 $) equation 
+and 
+use that $ v^i = \F{i}{0} $, we have
+\begin{equation}\label{eqn.F.3d}
+\pd_\tau \F{i}{I} - \pd_I v^i = 0,
+\end{equation}
+which is the Lagrangian time evolution for $ \F{i}{I} $, $ i,I =1,2,3$.
+
+We can easily get the Eulerian version of this PDE by simply transforming Lagrangian derivatives to 
+Eulerian $ \pd_\sA = \F{a}{\sA}\pd_a $ (and in particular $ \pd_\tau = \F{a}{0}\pd_a = \pd_t + 
+v^k\pd_k $)  
+\begin{equation}\label{eqn.F.euler}
+\pd_t \F{i}{I} + v^k\pd_k \F{i}{I} - \F{k}{I}\pd_k v^i = 0.
+\end{equation}
+
+OR, using \eqref{app.eq.dAdF}, we can also change $ \F{i}{I} \rightarrow \A{I}{i}=(\F{i}{I})^{-1}$ 
+in \eqref{eqn.F.euler} to get the PDE for $ \A{I}{i} $
+\begin{equation}\label{eqn.A.3d}
+\pd_t \A{I}{i} + v^k \pd_k \A{I}{i} + \A{I}{k}\pd_i v^k = 0.
+\end{equation}
+
+To see some important differences between thees two equations, let us write them in equivalent 
+semi-conservative forms. 
+
+First, let's introduce $ \hatF{i}{I} = \rho \F{i}{I} $ like in Markus' 
+paper~\cite{Markus2009}. Then, by multiplying \eqref{eqn.F.euler} by $ \rho $ and adding it with 
+the continuity equation multiplied by $ \F{i}{I} $, we get
+\begin{equation}\label{eqn.F.semicons}
+\pd_t\hatF{i}{I} + \pd_k (v^k \hatF{i}{I} - v^i \hatF{k}{I}) + v^i \pd_k\hatF{k}{I} = 0.
+\end{equation}
+On the other hand, by adding $ 0 = v^k\pd_i\A{I}{k} - v^k\pd_i\A{I}{k} $ to the equation for $ 
+\A{I}{i} $, it can be written as
+\begin{equation}\label{eqn.A.semicons}
+\pd_t \A{I}{i} + \pd_i (v^k \A{I}{k}) + v^k (\pd_k \A{I}{i} - \pd_i \A{I}{k})  = 0.
+\end{equation}
+
+So, this semi conservative PDEs are quite different in structure.
+
+\textbf{Remark.} Note that the last terms in \eqref{eqn.F.semicons} and \eqref{eqn.A.semicons} are 
+connected as
+\begin{equation}
+\pd_k \hatF{k}{I} = \rho \F{i}{I}\F{k}{J}(\pd_k \A{J}{i} - \pd_i \A{J}{k}).
+\end{equation}
+
+\IP{The question is what can we learn from this with respect to the Jacobi identity?}
+
+
+\textbf{Remark.} Another remark is that, similar to \eqref{eqn.F.4d} and \eqref{eqn.F.3d}, the 
+Eulerian PDE \eqref{eqn.A.3d}, or equivalently \eqref{eqn.A.semicons}, is nothing else but ($ 
+a,b=0,1,2,3 $)
+\begin{equation}\label{eqn.A.4d}
+\pd_a \A{A}{b} - \pd_b \A{A}{a} = 0.
+\end{equation}
+Indeed, contracting it with $ u^a = (1,v^1,v^2,v^3) $ and considering only equations $ I=1,2,3 $, 
+one obtains
+\begin{equation}
+u^a(\pd_a \A{I}{b} - \pd_b \A{I}{a}) = \pd_t \A{I}{b} + v^k\pd_k \A{I}{b} - u^a\pd_b \A{I}{a} = 0.
+\end{equation}
+Then, we use that $ u^a\A{I}{a} = \F{a}{0}\A{I}{a} = 0 $ and hence $ \A{I}{0} = -v^k \A{I}{k} $.
+Thus, considering only equations $ b=i=1,2,3 $, we have
+\begin{equation}
+\pd_t \A{I}{i} + v^k\pd_k \A{I}{i} - \pd_i \A{I}{0} - v^k\pd_i \A{I}{k} = 0,
+\end{equation}
+\begin{equation}
+\pd_t \A{I}{i} + v^k\pd_k \A{I}{i} + \pd_i (v^k \A{I}{k}) - v^k\pd_i \A{I}{k} = 0,
+\end{equation}
+which is \eqref{eqn.A.semicons}.
+
+
+
+
+
 
 
 \section{Continuum thermodynamics = Mechanics + Dissipation}
@@ -678,7 +808,7 @@ Taking derivative of this equality with respect to $F^k_K(\xx)$ leads to
 	\frac{\partial A^I_i}{\partial F^k_K} F^j_I = -A^K_i \delta^j_k.
 \end{equation}
 After multiplication by $A^J_j$ we obtain
-\begin{equation}
+\begin{equation}\label{app.eq.dAdF}
 	\frac{\partial A^L_l}{\partial F^j_J} = -A^J_l A^L_j,
 \end{equation}
 from which it follows that 
