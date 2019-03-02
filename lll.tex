@@ -104,7 +104,7 @@ BCOR5mm, % Binding correction
 
 %\subtitle{Subtitle} % Uncomment to display a subtitle
 
-\author{\spacedlowsmallcaps{MP*\textsuperscript{1} \& IP\textsuperscript{2} \& MH\textsuperscript{3}}} % The article author(s) - author affiliations need to be specified in the AUTHOR AFFILIATIONS block
+\author{\spacedlowsmallcaps{Michal Pavelka*\textsuperscript{1} \& Ilya Peshkov\textsuperscript{2} \& Markus H{\" u}tter\textsuperscript{3}}} % The article author(s) - author affiliations need to be specified in the AUTHOR AFFILIATIONS block
 
 \date{} % An optional date to appear under the author(s)
 
@@ -472,6 +472,12 @@ system \eqref{eqn.hydro.type} can be rewritten as a symmetric quasilinear system
 \end{equation}
 which means that the equations are hyperbolic, since matrix $g^{ij}$ can be diagonalized (it is Hermitean). 
 
+To find transformation \eqref{eq.gij.trans}, we first find the inverse transformation (noting that $\det g\neq 0$), 
+\begin{equation}
+    \frac{\partial Q_i}{\partial q^j}=g_{ij}\stackrel{\mathrm{def}}{=}(g^{-1})_{ij},
+\end{equation}
+which can always be solved by integration along curves. 
+
 Let us now we pass to the dual formulation by Legendre transformation
 \begin{subequations}
 \begin{equation}
@@ -508,6 +514,7 @@ So, this is not an independent prove of hyperbolicity but rather a geometrizatio
 Godunov-Boilat theorem. But anyway, this is cool! I like it.
 }
 \MP{Thank you, Ilya, for this insight. It really seems to be the connection to Godunov-Boilat. However, still there is I think the problem of solvability of Eq. \eqref{eq.gij.trans}. Is there always a solution?}
+\IP{As long as the energy $e(q^i)$ is convex, such $Q_i$ which satisfy \eqref{eq.gij.trans} always exist and they are Legendre conjugate to $q^i$.}
 
 \subsubsection{Criterion when constructing Poisson brackets}
 Jacobi identity is also useful as a decisive criterion when choosing between several possible forms of a Poisson bracket. For instance in \cite{Markus2009} it led to the identification of coupling between the mechanics of the Eulerian deformation tensor $\FF(\xx)$ and fluid mechanics. Similarly, in \cite{SHTC-GENERIC}  bracket \eqref{eq.PB.A} is derived by projection from a simpler bracket for fluid mechanics with labels (distortion being spatial gradient of labels). By adding terms to the bracket that are zero for compatible distortion matrices ($\nabla\times\AA=0$) Jacobi identity becomes valid unconditionally (even with incompatible distortion), and bracket \eqref{eq.PB.A} is recovered.
@@ -610,7 +617,7 @@ use that $ v^i = \F{i}{0} $, we have
 \begin{equation}\label{eqn.F.3d}
 \pd_\tau \F{i}{I} - \pd_I v^i = 0,
 \end{equation}
-which is the Lagrangian time evolution for $ \F{i}{I} $, $ i,I =1,2,3$.
+which is the time evolution for $ \F{i}{I} $, $ i,I =1,2,3$ in the Lagrangian coordinates.
 
 We can easily get the Eulerian version of this PDE by simply transforming Lagrangian derivatives to 
 Eulerian $ \pd_\sA = \F{a}{\sA}\pd_a $ (and in particular $ \pd_\tau = \F{a}{0}\pd_a = u^a \pd_a = \pd_t + 
@@ -638,7 +645,7 @@ On the other hand, by adding $ 0 = v^k\pd_i\A{I}{k} - v^k\pd_i\A{I}{k} $ to the 
 \begin{equation}\label{eqn.A.semicons}
 \pd_t \A{I}{i} + \pd_i (v^k \A{I}{k}) + v^k (\pd_k \A{I}{i} - \pd_i \A{I}{k})  = 0.
 \end{equation}
-These semi-conservative PDEs are quite different in structure.
+These semi-conservative PDEs are quite different in structure which is discussed int he following remarks.
 
 \begin{remark}\label{rem.div.curl}
 Note that the last terms in \eqref{eqn.F.semicons} and \eqref{eqn.A.semicons} are 
@@ -667,7 +674,7 @@ one obtains
 \begin{equation}
 u^a(\pd_a \A{I}{b} - \pd_b \A{I}{a}) = \pd_t \A{I}{b} + v^k\pd_k \A{I}{b} - u^a\pd_b \A{I}{a} = 0.
 \end{equation}
-Then, we use that $ u^a\A{I}{a} = \F{a}{0}\A{I}{a} = 0 $ and hence $ \A{I}{0} = -v^k \A{I}{k} $.
+Then, we use that the orthogonality condition $ u^a\A{I}{a} = \F{a}{0}\A{I}{a} = 0 $ and hence $ \A{I}{0} = -v^k \A{I}{k} $.
 Thus, considering only equations $ b=i=1,2,3 $, we have
 \begin{equation}
 \pd_t \A{I}{i} + v^k\pd_k \A{I}{i} - \pd_i \A{I}{0} - v^k\pd_i \A{I}{k} = 0,
@@ -706,7 +713,7 @@ The 4D equations for $ \F{a}{A} $ and $ \A{A}{a} $ are related as
 
 
 \section{Semidirect product}\label{sec.SP}
-It is well known that mechanics (i.e. reversible evolution) of fluids is Hamiltonian, see e.g. \cite{Arnold}, \cite{Marsden-Ratiu-Weinstein} or \cite{PKG}. Fluid mechanics, in particular, is a realization of Lie-Poisson dynamics, where the Poisson bracket is the Lie-Poisson bracket on a Lie algebra dual. Another examples of Lie-Poisson dynamics are rigid body rotation or kinetic theory. In \cite{Marsden-Ratiu-Weinstein} it is explained how to construct new Hamiltonian dynamics by letting one Hamiltonian dynamics be advected by another. Having a Lie algebra dual $\LA$ (for instance fluid mechanics), an another Lie algebra dual or cotangent bundle is advected by $\LA^*$ by the construction of semidirect product. 
+It is well known that mechanics (i.e. reversible evolution) of fluids is Hamiltonian, see e.g. \cite{Arnold}, \cite{Marsden-Ratiu-Weinstein} or \cite{PKG}. Fluid mechanics, in particular, is a realization of Lie-Poisson dynamics, where the Poisson bracket is the Lie-Poisson bracket on a Lie algebra dual. Another examples of Lie-Poisson dynamics are rigid body rotation or kinetic theory. In \cite{Marsden-Ratiu-Weinstein} it is explained how to construct new Hamiltonian dynamics by letting one Hamiltonian dynamics be advected by another. Having a Lie algebra dual $\LA^*$ (for instance fluid mechanics), an another Lie algebra dual or cotangent bundle is advected by $\LA^*$ by the construction of semidirect product. 
 
 One can even think of mutual action of the two Hamiltonian dynamics, which leads to the structure of matched pairs \cite{esen2016hamiltonian}, \cite{elmag}. For the purpose of this paper, however, we restrict the discussion only to one-sided action of one Hamiltonian system to another, i.e. to the semidirect product. A general formula for the Poisson bracket of semidirect product of a Lie algebra dual $\LA^*$ and cotangent bundle $T^*M = V\times V^*$ was presented for instance in \cite{elmag, Ogul-matched2},
 \begin{eqnarray}\label{eq.PB.SP.gen}
@@ -716,7 +723,7 @@ One can even think of mutual action of the two Hamiltonian dynamics, which leads
 	&&+ \left\langle \DD, F_\mm\vartriangleright  G_\DD\right\rangle
 	- \left\langle \DD, G_\mm\vartriangleright  F_\DD\right\rangle
 \end{eqnarray}
-where $\AA\in V$ is a covector field, $\AA = A_i dx^i$ and $\DD\in V^*$ is a vector field $\DD = D^i \partial_i$, $\{F,G\}^{(\LA^*)}$ is the Lie-Poisson bracket on the Lie algebra dual, $\{F,G\}^{(T^*M)}$ is the canonical Poisson bracket on the cotangent bundle, $\langle\bullet,\bullet\rangle$ is a scalar product (usually $L^2$, i.e. integration over the domain, or duality in distrubutions $\mathcal{D}'$), $\mm\in\LA^*$ is the momentum density (element of the Lie algebra dual) and $\vartriangleright$ is the action of $\LA$ on $T^*M$,  minus the Lie derivative $- \Lie$. Poisson bracket \eqref{eq.PB.SP.gen} can be thus rewritten as
+where $\AA\in V$ is a covector field, $\AA = A_i dx^i$ and $\DD\in V^*$ is a vector field $\DD = D^i \partial_i$, $\{F,G\}^{(\LA^*)}$ is the Lie-Poisson bracket on the Lie algebra dual, $\{F,G\}^{(T^*M)}$ is the canonical Poisson bracket on the cotangent bundle, $\langle\bullet,\bullet\rangle$ is a scalar product (usually $L^2$, i.e. integration over the domain, or duality in distrubutions $\mathcal{D}'$), $\mm\in\LA^*$ is the momentum density (element of the Lie algebra dual) and $\vartriangleright$ is the action of $\LA^*$ on $T^*M$,  minus the Lie derivative $- \Lie$. Poisson bracket \eqref{eq.PB.SP.gen} can be thus rewritten as
 \begin{eqnarray}
 	\{F,G\}^{(\LA*\ltimes T^*M)} &=& \{F,G\}^{(\LA^*)} + \{F,G\}^{(T^*M)}\nonumber\\
 	&&-\left\langle  F_\AA, \Lie_{G_\mm} \AA\right\rangle
@@ -775,7 +782,7 @@ In summary, we have constructed the Hamiltonian dynamics of a cotangent bundle a
 \section{Conclusion}
 
 \section*{Acknowledgment}
-M.P. is grateful to Miroslav Grmela, Václav Klika and O{\u g}ul Esen for many discussions on Hamiltonian formulation of solids and fluids and to Jan Zeman, Petr Pelech, Martin Sýkora, Miroslav Hanzelka and Tomáš Los for patience and their opinions during the GENERIC course 2018/19.
+M.P. is grateful to Miroslav Grmela, Václav Klika, Petr Vágner and O{\u g}ul Esen for many discussions on Hamiltonian formulation of solids and fluids and to Jan Zeman, Petr Pelech, Martin Sýkora, Miroslav Hanzelka and Tomáš Los for patience and their opinions during the GENERIC course 2018/19.
 
 I.P. acknowledges a financial support from ANR-11-LABX-0040-CIMI within the program ANR-11-
 IDEX-0002-02. M.P. was supported by Czech Science Foundation, Project No. 17-15498Y, and by Charles University Research Program No. UNCE/SCI/023. 
