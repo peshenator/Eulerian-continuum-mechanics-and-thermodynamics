@@ -104,7 +104,7 @@ BCOR5mm, % Binding correction
 
 %\subtitle{Subtitle} % Uncomment to display a subtitle
 
-\author{\spacedlowsmallcaps{Michal Pavelka*\textsuperscript{1} \& Ilya Peshkov\textsuperscript{2} \& Markus H{\" u}tter\textsuperscript{3}}} % The article author(s) - author affiliations need to be specified in the AUTHOR AFFILIATIONS block
+\author{\spacedlowsmallcaps{Michal Pavelka*\textsuperscript{1} \& Ilya Peshkov\textsuperscript{2} }} % The article author(s) - author affiliations need to be specified in the AUTHOR AFFILIATIONS block
 
 \date{} % An optional date to appear under the author(s)
 
@@ -143,7 +143,7 @@ BCOR5mm, % Binding correction
 
 \section*{Abstract} % This section will not appear in the table of contents due to the star (\section*)
 
-Continuum mechanics can be formulated in the Lagrangian frame or in the Eulerian frame. There is a canonical Hamiltonian structure in the Lagrangian frame. By transformation to the Eulerian frame we find the Poisson bracket for Eulerian continuum mechanics. Both Lagrangian and Eulerian Hamiltonian structures are then discussed from the perspective of space-time formulation and by means of semidirect products of Lie algebras. Finally, the importance of Jacobi identity is stressed.
+Continuum mechanics can be formulated in the Lagrangian frame or in the Eulerian frame. There is a canonical Hamiltonian structure in the Lagrangian frame. By transformation to the Eulerian frame we find the Poisson bracket for Eulerian continuum mechanics. Both Lagrangian and Eulerian Hamiltonian structures are then discussed from the perspective of space-time formulation and by means of semidirect products of Lie algebras. Finally, we discuss the importance of the Jacobi identity and, in particular, we demonstrate the equivalence between the Jacobi identity and the well-posedness of the initial value problem (hyperbolicity) for quasilinear systems of first-order partial differential equations.
 
 %----------------------------------------------------------------------------------------
 %	AUTHOR AFFILIATIONS
@@ -151,9 +151,10 @@ Continuum mechanics can be formulated in the Lagrangian frame or in the Eulerian
 
 \let\thefootnote\relax\footnotetext{* \textit{pavelka@karlin.mff.cuni.cz}}
 
-\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{Mathematical Institute, Faculty of Mathematics and Physics, Charles University, Sokolovská 83, 186 75 Prague, Czech Republic}}
-\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{Institut de Mathématiques de Toulouse, Toulouse, France}}
-\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{Eindhoven University of Technology, Polymer Technology,Department of Mechanical Engineering, PO Box 513, 5600 MB Eindhoven, The Netherlands}}
+\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{Mathematical Institute, Faculty of Mathematics and Physics, Charles University, Sokolovská 83, 186 75 Prague, Czech Republic, \href{mailto:pavelka@karlin.mff.cuni.cz}{e-mail}}}
+\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{Institut de Math\'{e}matiques de Toulouse, Universit\'{e} Toulouse III, F-31062 
+	Toulouse, France, \href{mailto:peshkov@math.nsc.ru}{e-mail}}}
+%\let\thefootnote\relax\footnotetext{\textsuperscript{1} \textit{Eindhoven University of Technology, Polymer Technology,Department of Mechanical Engineering, PO Box 513, 5600 MB Eindhoven, The Netherlands}}
 
 %----------------------------------------------------------------------------------------
 
@@ -169,17 +170,24 @@ Continuum mechanics can be formulated in the Lagrangian frame or in the Eulerian
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
+The usual way continuum mechanics is presented is based on a generalization of Newton's laws to continuum particles \cite{Marsden-hughes}. As Newton's laws can be seen as a consequence of the principle of least action or Hamiltonian mechanics (Hamilton canonical equations), so can be the continuum mechanics. Moreover, continuum mechanics can be formulated in the Lagrangian frame, where coordinates are attached to matter, or Eulerian frame, where coordinates are attached to an inertial frame of reference. We shall present the transformation of the Hamiltonian continuum mechanics from the Lagrangian frame to the Eulerian frame, which leads to the Poisson bracket generating reversible evolution equations for density, momentum density and entropy density (balance laws) coupled with evolution for deformation gradient or distortion (its inverse). This is the Hamiltonian formulation of continuum mechanics in the Eulerian frame.
 
-Intro 
-\cite{HCO},\cite{PKG}, \cite{Markus2009}
+Subsequently, we recall the SHTC (Symmetric Hyperbolic Thermodynamically Compatible) equations for nonlinear Eulerian elasticity and fluid mechanics, we project the Poisson bracket to less detailed levels of description suitable for polymeric flows, and discuss the meaning of Jacobi identity and its relation to hyperbolicity of the governing evolution equations.
+
+In Sec. \ref{sec.variation} we identify the variational structure of Lagrangian continuum mechanics in the space-time setting.
+
+Finally, in Sec. \ref{sec.SP} the Poisson bracket for Eulerian continuum mechanics with distortion matrix is identified with semidirect product of fluid mechanics and a cotangent bundle.
+
 
 \section{Hamiltonian mechanics}
+\cite{HCO},\cite{PKG}, \cite{Markus2009}
+
 \subsection{Lagrangian frame}
 Consider a body material points of which are described by a reference (Lagrangian) coordinate $\XX$. Position of the material point $\XX$ at time $t$ with respect to a chosen inertial laboratory frame is then given by the mapping $\xx(t,\XX)$ from the Lagrangian coordinates to the Eulerian coordinates. This mapping is usually assumed to be smooth enough and invertible. These properties will be violated later in this paper, but for the moment let us adopt those assumptions as well. 
 
 Mechanical state of a material point is characterized by its position $\xx(t,\XX)$ and velocity $\dot{\xx}(t,\XX)$ or the corresponding momentum density $\MM(t,\XX)$ (momentum per Lagrangian volume $\diff \XX$). In mathematical terms the couple $(\xx,\dot{\xx})$ forms a tangent bundle while the couple $(\xx,\MM)$ forms a cotangent bundle. Since we are seeking Hamiltonian evolution (generated by a Poisson bracket and energy), we choose the latter description. The Lagrangian state variables are thus the field of Eulerian positions $\xx(t,\XX)$ and the field of momentum density $\MM(t,\XX)$. 
 
-Since these state variables form a cotangent bundle, they are equipped with the canonical Poisson bracket in the Lagrangian frame
+Since these state variables form a cotangent bundle, they are equipped with the \textit{canonical} Poisson bracket in the Lagrangian frame
 \begin{equation}\label{eq.PB.L}
 	\{F,G\}^{(L)} = \int\dX \left(\frac{\delta F}{\delta x^i(\XX)} \frac{\delta G}{\delta M_i(\XX)} -\frac{\delta G}{\delta x^i(\XX)} \frac{\delta F}{\delta M_i(\XX)}\right),
 \end{equation}
@@ -207,7 +215,7 @@ Denoting a general set of state variables by $\qq$, a Poisson bracket can be equ
 \end{equation}
 which is antisymmetric and can be used to reconstruct the bracket as follows,
 \begin{equation}
-	\{F,G\} = \langle F_{q^i}| L^{ij}|G_{q^j}\rangle.
+	\{F,G\} = \langle F_{q^i}, L^{ij} G_{q^j}\rangle.
 \end{equation}
 
 Once having state variables $\qq$, e.g. $\qq=(\xx(\XX),\MM(\xx))$, and the corresponding Poisson bracket, the reversible evolution of functionals of the state variables is given by 
@@ -222,12 +230,12 @@ as well as
 \begin{equation}
 	\dot{F}(\xx(\XX),\MM(\XX)) = \int\dX \left(\frac{\delta F}{\delta x^i} \partial_t x^i + \frac{\delta F}{\delta M_i} \partial_t M_i \right).
 \end{equation}
-\IP{In GENERIC, how do we distinguish between $ \pd_t $ being the material time derivative or 
-Eulerian time 
-derivative?}
-\MP{Note that the time derivative $\partial_t$ is always to be interpreted as the partial time derivative. Any other time derivatives, e.g. the upper convected one, are denoted by different symbols.}
-\IP{OK. But then if $\pd_t$ is the partial time derivative, then in the momentum eqn.\eqref{eq.L.evo.mom} it is also partial while it should be material time derivative... isn't it?}
-\MP{Well, this is the Lagrangian continuum, so the partial time derivative means change of momentum of material point $X$. It is similar to Hamilton canonical equations, where partial time derivatives work as well. It is the transformation from Lagrange to Euler, which turns partial time derivative to the material derivative. Do you think it might work this way?}
+% \IP{In GENERIC, how do we distinguish between $ \pd_t $ being the material time derivative or 
+% Eulerian time 
+% derivative?}
+% \MP{Note that the time derivative $\partial_t$ is always to be interpreted as the partial time derivative. Any other time derivatives, e.g. the upper convected one, are denoted by different symbols.}
+% \IP{OK. But then if $\pd_t$ is the partial time derivative, then in the momentum eqn.\eqref{eq.L.evo.mom} it is also partial while it should be material time derivative... isn't it?}
+% \MP{Well, this is the Lagrangian continuum, so the partial time derivative means change of momentum of material point $X$. It is similar to Hamilton canonical equations, where partial time derivatives work as well. It is the transformation from Lagrange to Euler, which turns partial time derivative to the material derivative. Do you think it might work this way?}
 
 By comparing these two equalities, we can conclude that the evolution equations for $\xx$ and $\MM$ are
 \begin{subequations}\label{eq.L.evo}
@@ -277,7 +285,7 @@ First we have to declare what are the fields constituting the Eulerian state var
 		F^i_I(\xx) &=& \frac{\partial x^i}{\partial X^I}\Big|_{\XX(\xx)}
 	\end{eqnarray}
 \end{subequations}
-of local mass density (per volume $\dx$), momentum density, entropy density and the deformation tensor. 
+of local mass density (per volume $\dx$), momentum density, entropy density and the deformation gradient. 
 
 The goal is to project the Lagrangian Poisson bracket \eqref{eq.PB.L} to an Eulerian Poisson bracket by letting the functionals depend only on the Eulerian fields \eqref{eq.x.E}. After rather lengthy calculation (Appendix \ref{sec.L-E}) we obtain the Poisson bracket
 \begin{eqnarray}\label{eq.PB.Eu}
@@ -290,8 +298,8 @@ where $\{F,G\}^{(FM)}$ stands for the Poisson bracket of fluid mechanics,
 	+ \int\dx m_i (\partial_j F_{m_i} G_{m_j}-\partial_j G_{m_i} F_{m_j})\\
 	+ \int\dx s (\partial_i F_s G_{m_i}-\partial_i G_s F_{m_i}).
 \end{multline}
-For brevity the functional derivatives are denoted by subscript hereafter, e.g. $\frac{\delta F}{\delta \rho} = F_\rho$.
-Bracket \eqref{eq.PB.Eu} is certainly a Poisson bracket, i.e. fulfills criteria \eqref{eq.PB.prop}, since it has been obtained by projection of Poisson brackets (see e.g. \cite{PhysD-hierarchy}). The bracket is compatible with Poisson bivector 5.12a of \cite{Markus2009}, and it expresses kinematics of the Eulerian state variables consisting of the state variables of fluid mechanics ($\rho$, $\mm$ and $s$) and the deformation tensor $\FF(\xx)$.
+For brevity, the functional derivatives are denoted by subscript hereafter, e.g. $\frac{\delta F}{\delta \rho} = F_\rho$.
+Bracket \eqref{eq.PB.Eu} is certainly a Poisson bracket, i.e. fulfills criteria \eqref{eq.PB.prop}, since it has been obtained by projection of Poisson brackets (see e.g. \cite{PhysD-hierarchy}). The bracket is compatible with Poisson bivector 5.12a of \cite{Markus2009}, and it expresses kinematics of the Eulerian state variables consisting of the state variables of fluid mechanics ($\rho$, $\mm$ and $s$) and the deformation gradient $\FF(\xx)$.
 
 The reversible evolution equations implied by bracket \eqref{eq.PB.Eu} are
 \begin{subequations}\label{eq.evo.Eu}
@@ -311,11 +319,11 @@ Total energy density $e$ can be prescribed as
 \begin{equation}
 	e = \frac{\mm^2}{2\rho} + \eps(\rho,s,F),
 \end{equation}
-where $\eps$ is the elastic and internal energy. In particular, $E_\mm = \mm/\rho = \vv$ becomes the velocity. The evolution equation for the deformation tensor then gets the explicit form
+where $\eps$ is the elastic and internal energy. In particular, $E_\mm = \mm/\rho = \vv$ becomes the velocity. The evolution equation for the deformation gradient then gets the explicit form
 \begin{equation}
 	\partial_t \FF = -(\vv\cdot\nabla) \FF + \nabla \vv \cdot \FF,
 \end{equation}
-which is the usual evolution equation for $\FF$ in the Eulerian frame. Equations \eqref{eq.PB.Eu} represent evolution equations for density, momentum density, entropy density and deformation tensor in the Eulerian frame, and they attain an explicit form once total energy density is specified.
+which is the usual evolution equation for $\FF$ in the Eulerian frame. Equations \eqref{eq.evo.Eu} represent evolution equations for density, momentum density, entropy density and deformation gradient in the Eulerian frame, and they attain an explicit form once total energy density is specified.
 
 
 \subsection{Non-Newtonian fluids}
@@ -425,7 +433,7 @@ Consider a system of one-dimensional quasilinear evolution equations of first or
 This system of equations is referred as of hydrodynamic type. 
 
 A Poisson bracket is of hydrodynamic type if the corresponding Poisson bivector has the form
-\begin{equation}
+\begin{equation}\label{eqn.bivector.hydro}
 	L^{ij} = \{q^i(x),q^j(y)\} = g^{ij}(\qq(x)) \delta'(x-y) + b^{ij}_k (\qq(x)) \partial_x q^k \delta(x-y).
 \end{equation}
 Energy is of hydrodynamic type if it is integral of a function of the state variables, 
@@ -441,44 +449,48 @@ The Poisson brackets discussed in this paper are all of hydrodynamic type.
 
 It was shown in \cite{Novikov} that
 \begin{enumerate}
-\item Under local changes $\qq = \qq(\QQ)$ the coefficient $g^{ij}$ in the bracket
-		Poisson bracket is transformed as a tensor with upper indices; if $\det g^{ij} \neq 0$, then the expression
-		$b^{ij}_k = -g^{is}\Gamma^j_{sk}$ is transformed so that $\Gamma^j_{sk}$ is the Christoffel symbol of a differential
-geometric connection.
+\item Under local changes $\QQ = \QQ(\qq)$ of the vector of state variables, the coefficient $g^{ij}$ in \eqref{eqn.bivector.hydro} is transformed as a tensor with upper indices; if $\det g^{ij} \neq 0$, then the expression
+		$b^{ij}_k = -g^{is}\Gamma^j_{sk}$ is transformed so that $\Gamma^j_{sk}$ is the Christoffel symbol of an affine connection.
 \item  For the Poisson bivector to be antisymmetric it is necessary and sufficient that the
-	tensor $g^{ij}$ be symmetric (i.e., define a pseudo-Riemannian metric, if $\det g^{ij} \neq 0$) and
-		the connection $\Gamma^i_{jk}$ be compatible with the metric: $\nabla_k g^{ij} = 0$.
-	\item  For the bracket to satisfy Jacobi identity it is necessary and sufficient (in the case $\det g^{ij} \neq 0 $) that the connection $\Gamma^{j}_{sk}$ be torsion free and the curvature tensor be zero.
+	tensor $g^{ij}$ be \textit{symmetric} (i.e. it defines a pseudo-Riemannian metric, if $\det g^{ij} \neq 0$) and
+		the connection $\Gamma^i_{jk}$ is metric compatible: $\nabla_k g^{ij} = 0$, where $\nabla_k$ being the associated covariant derivative in the space of state variables.
+	\item  For the bracket to satisfy Jacobi identity it is necessary and sufficient (in the case $\det
+	g^{ij} \neq 0 $) that the connection $\Gamma^{j}_{sk}$ be torsion-free and the curvature tensor be zero.
 \end{enumerate}
 Assuming the non-degenerate case, it follows that the matrix $v^l_k$ can be rewritten as
 \begin{equation}
-	v^l_k = g^{ls}\nabla_s \nabla_k e,
+	v^l_k = g^{ls}\nabla_s \nabla_k e.
 \end{equation}
-where $\nabla$ stands for the covariant derivative with Christofel symbols from point 1 above.
-
-Now, assuming the energy be convex, the matrix $e_{sk}\equiv \nabla_s \nabla_k e$ should be positive semidefinite and symmetric (due to that there is neither torsion nor curvature). The evolution equation then becomes
+% where $\nabla$ stands for the covariant derivative with Christofel symbols from point 1 above.
+Now, let us assume that the energy $e(\qq)$ is a proper scalar (i.e. $e(\qq) = e(\QQ(\qq))$) and strictly
+convex. Then, due to that there is neither torsion nor curvature, the matrix
+$e_{sk}\stackrel{\mathrm{def}}{=} \nabla_s \nabla_k e$ is positive definite and symmetric. The evolution equations \eqref{eqn.hydro.type} then become
 \begin{equation}
 	\partial_t q^i = g^{ij} e_{jk}\partial_x q^k.
 \end{equation}
 
 
-If there is such transformation that $q^i(\QQ)$ such that 
+If there is a transformation $q^i(\QQ)$ such that (recall that $g^{ij}$ is supposed to be symmetric)
 \begin{equation}\label{eq.gij.trans}
  \frac{\partial q^i}{\partial Q_j} = g^{ij},
 \end{equation}
-system \eqref{eqn.hydro.type} can be rewritten as a symmetric quasilinear system
-\begin{equation}
-	g^{ij}\partial_t Q_j = g^{ij} e_{jk} g^{kl} \partial_x Q_l
+system \eqref{eqn.hydro.type} can be rewritten as a \textit{symmetric} quasilinear system
+\begin{equation}\label{eqn.symm.quasilin}
+	g^{ij}\partial_t Q_j = g^{ij} e_{jk} g^{kl} \partial_x Q_l.
 \end{equation}
-which means that the equations are hyperbolic, since matrix $g^{ij}$ can be diagonalized (it is Hermitean). 
-
-To find transformation \eqref{eq.gij.trans}, we first find the inverse transformation (noting that $\det g\neq 0$), 
+To find transformation \eqref{eq.gij.trans}, we first find the inverse transformation $g_{ij}$ (recall that $\det g^{ij}\neq 0$), 
 \begin{equation}
-    \frac{\partial Q_i}{\partial q^j}=g_{ij}\stackrel{\mathrm{def}}{=}(g^{-1})_{ij},
+    \frac{\partial Q_i}{\partial q^j}=g_{ij}, \qquad g_{ik} g^{kj} = \delta_i^j,%\stackrel{\mathrm{def}}{=}(g^{-1})_{ij},
 \end{equation}
 which can always be solved by integration along curves. 
 
-Let us now we pass to the dual formulation by Legendre transformation
+Because metric $g^{ij}$ is pseudo-Riemannian in general, we cannot yet conclude whether system \eqref{eqn.symm.quasilin} is
+\textit{symmetric hyperbolic} or not. Recall that for the symmetric hyperbolicity the matrix in front of the
+time derivative has to be positive definite.
+% which means that the equations are hyperbolic because matrix $g^{ij}$ can be diagonalized (it is Hermitean). 
+
+
+Let us now pass to the dual formulation by Legendre transformation
 \begin{subequations}
 \begin{equation}
     P = -e + q^i \frac{\partial e}{\partial q^i}
@@ -493,31 +505,31 @@ Potential $P$ here plays the role of pressure in the evolution equation for mome
 If $g^{ij} = \frac{\partial^2 P}{\partial p_i \partial p_j}$, then we have found transformation \eqref{eq.gij.trans}, which proves even symmetric hyperbolicity of the evolution equations and is equivalent to the Godunov-Boilat theorem.
 
 
-\IP{This looks promising but unfortunately $g^{ij}$ has to be either positive-definite $g^{ij}>0$ or negative-definite $g^{ij}<0$ but not semi-definite.}
+% \IP{This looks promising but unfortunately $g^{ij}$ has to be either positive-definite $g^{ij}>0$ or negative-definite $g^{ij}<0$ but not semi-definite.}
 
-\MP{Well, $g^{ij}$ is not the space-time metric, but the metric on the space of state variables. It has non-zero determinant, thus is regular. Could it be sufficient? Also symmetric hyperbolicity cannot be anticipated in general, only hyperbolicity (as in the SHTC equations without Burgers as a state variable.}
+% \MP{Well, $g^{ij}$ is not the space-time metric, but the metric on the space of state variables. It has non-zero determinant, thus is regular. Could it be sufficient? Also symmetric hyperbolicity cannot be anticipated in general, only hyperbolicity (as in the SHTC equations without Burgers as a state variable.}
 
-\IP{OK, it seems that this $ g^{ij} $ is not a trivial thing because an arbitrary change of 
-variables 
-usually gives non-symmetric Jacobian $\frac{\partial q^i}{\partial Q_j}$ while for some reason this 
-$ g^{ij} $ is assumed to be symmetric. I need to read the Refs.~\cite{Tsarev} and 
-\cite{Novikov}......}
-\MP{Thank you for checking this. If I remember, it was not easy to verify hyperbolicity. If we are 
-right, we could have an automatic proof (and using Markus' program also computer-aided proof).}
-\IP{Ha, I'm stupid :) well, in fact the existence of such a change of variables $ q^i(\QQ) $ 
-automatically follows from the Godunov-Boilat theorem. Indeed, $ q^i = L_{p_i} $ if the $ p_i 
-:=e_{q^i} $ and $ L:=q^i e_{q^i} - e $ then we take $ Q_i = p_i $ and \textit{voilà} 
-\begin{equation}
-g^{ij} = \frac{\pd q^i}{\pd Q_j} = \frac{\pd^2 L}{\pd Q_i\pd Q_j}.
-\end{equation}
-So, this is not an independent prove of hyperbolicity but rather a geometrization of the 
-Godunov-Boilat theorem. But anyway, this is cool! I like it.
-}
-\MP{Thank you, Ilya, for this insight. It really seems to be the connection to Godunov-Boilat. However, still there is I think the problem of solvability of Eq. \eqref{eq.gij.trans}. Is there always a solution?}
-\IP{As long as the energy $e(q^i)$ is convex, such $Q_i$ which satisfy \eqref{eq.gij.trans} always exist and they are Legendre conjugate to $q^i$.}
+% \IP{OK, it seems that this $ g^{ij} $ is not a trivial thing because an arbitrary change of 
+% variables 
+% usually gives non-symmetric Jacobian $\frac{\partial q^i}{\partial Q_j}$ while for some reason this 
+% $ g^{ij} $ is assumed to be symmetric. I need to read the Refs.~\cite{Tsarev} and 
+% \cite{Novikov}......}
+% \MP{Thank you for checking this. If I remember, it was not easy to verify hyperbolicity. If we are 
+% right, we could have an automatic proof (and using Markus' program also computer-aided proof).}
+% \IP{Ha, I'm stupid :) well, in fact the existence of such a change of variables $ q^i(\QQ) $ 
+% automatically follows from the Godunov-Boilat theorem. Indeed, $ q^i = L_{p_i} $ if the $ p_i 
+% :=e_{q^i} $ and $ L:=q^i e_{q^i} - e $ then we take $ Q_i = p_i $ and \textit{voilà} 
+% \begin{equation}
+% g^{ij} = \frac{\pd q^i}{\pd Q_j} = \frac{\pd^2 L}{\pd Q_i\pd Q_j}.
+% \end{equation}
+% So, this is not an independent prove of hyperbolicity but rather a geometrization of the 
+% Godunov-Boilat theorem. But anyway, this is cool! I like it.
+% }
+% \MP{Thank you, Ilya, for this insight. It really seems to be the connection to Godunov-Boilat. However, still there is I think the problem of solvability of Eq. \eqref{eq.gij.trans}. Is there always a solution?}
+% \IP{As long as the energy $e(q^i)$ is convex, such $Q_i$ which satisfy \eqref{eq.gij.trans} always exist and they are Legendre conjugate to $q^i$.}
 
 \subsubsection{Criterion when constructing Poisson brackets}
-Jacobi identity is also useful as a decisive criterion when choosing between several possible forms of a Poisson bracket. For instance in \cite{Markus2009} it led to the identification of coupling between the mechanics of the Eulerian deformation tensor $\FF(\xx)$ and fluid mechanics. Similarly, in \cite{SHTC-GENERIC}  bracket \eqref{eq.PB.A} is derived by projection from a simpler bracket for fluid mechanics with labels (distortion being spatial gradient of labels). By adding terms to the bracket that are zero for compatible distortion matrices ($\nabla\times\AA=0$) Jacobi identity becomes valid unconditionally (even with incompatible distortion), and bracket \eqref{eq.PB.A} is recovered.
+Jacobi identity is also useful as a decisive criterion when choosing between several possible forms of a Poisson bracket. For instance in \cite{Markus2009} it led to the identification of coupling between the mechanics of the Eulerian deformation gradeint $\FF(\xx)$ and fluid mechanics. Similarly, in \cite{SHTC-GENERIC}  bracket \eqref{eq.PB.A} is derived by projection from a simpler bracket for fluid mechanics with labels (distortion being spatial gradient of labels). By adding terms to the bracket that are zero for compatible distortion matrices ($\nabla\times\AA=0$) Jacobi identity becomes valid unconditionally (even with incompatible distortion), and bracket \eqref{eq.PB.A} is recovered.
 
 In \cite{Miroslav-Grad} the Poisson bracket for the infinite Grad hierarchy in kinetic theory was formulated. Projection for instance to the first ten moments (fluid mechanics and the matrix of second moments) does not end up in a closed form. Jacobi identity can be seen as a closure criterion so that the resulting evolution equations become objective.
 
@@ -775,17 +787,16 @@ Evolution equations implied by this bracket are
 	\partial_t s &=& -\partial_i(s E_{m_i}).
 \end{eqnarray}
 \end{subequations}
-In order to have reversible dynamics, parity of $\DD$ with respect to time reversal must be odd (parity of $AA$ is even). The vector field $\DD$ can be thus interpreted as the associated momentum of distortion. By letting the functional depend only on $(\rho,\mm,s,\AA)$ bracket \eqref{eq.PB.DA} becomes bracket \eqref{eq.PB.A}, and it can be thus seen as an extension of that bracket.
+In order to have reversible dynamics, parity of $\DD$ with respect to time reversal must be odd (parity of $\AA$ is even). The vector field $\DD$ can be thus interpreted as the associated momentum of distortion. By letting the functional depend only on $(\rho,\mm,s,\AA)$ bracket \eqref{eq.PB.DA} becomes bracket \eqref{eq.PB.A}, and it can be thus seen as an extension of that bracket.
 
 In summary, we have constructed the Hamiltonian dynamics of a cotangent bundle advected by fluid mechanics. Distortion $\AA$ is coupled to its associated momentum $\DD$ (similarly as in \cite{Ilya-torsion}, and the resulting equations are indeed Hamiltonian. In particular, by disregarding the associated momentum, the bracket for distortion matrix \eqref{eq.PB.A} can be seen as the Lie-Poisson bracket for semidirect product of fluid mechanics and a vector space, which is the geometric interpretation of the Poisson bracket.
 
 \section{Conclusion}
 
 \section*{Acknowledgment}
-M.P. is grateful to Miroslav Grmela, Václav Klika, Petr Vágner and O{\u g}ul Esen for many discussions on Hamiltonian formulation of solids and fluids and to Jan Zeman, Petr Pelech, Martin Sýkora, Miroslav Hanzelka and Tomáš Los for patience and their opinions during the GENERIC course 2018/19.
+This research was actually initiated by Markus H{\" u}tter during the IWNET 2018 conference. M.P. is grateful to Miroslav Grmela, Václav Klika, Petr Vágner, O{\u g}ul Esen and V{\' i}t Pr{\r u}{\v s}a for many discussions on Hamiltonian formulation of solids and fluids and to Jan Zeman, Petr Pelech, Martin Sýkora, Miroslav Hanzelka and Tomáš Los for patience and their opinions during the GENERIC course 2018/19.
 
-I.P. acknowledges a financial support from ANR-11-LABX-0040-CIMI within the program ANR-11-
-IDEX-0002-02. M.P. was supported by Czech Science Foundation, Project No. 17-15498Y, and by Charles University Research Program No. UNCE/SCI/023. 
+I.P. acknowledges a financial support by Agence Nationale de la Recherche (FR) (Grant No. ANR-11-LABX-0040-CIMI) within the program ANR-11-IDEX-0002-02. M.P. was supported by Czech Science Foundation, Project No. 17-15498Y, and by Charles University Research Program No. UNCE/SCI/023. 
 
 %----------------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
@@ -857,8 +868,8 @@ which means that
 	\frac{\delta \rho_0(\xx)}{\delta x^k(\XX)} = -\partial_k \rho_0(\xx) \delta(\XX-\XX(\xx)).
 \end{equation}
 
-\subsection{Derivative of the Eulerian deformation tensor $\FF(\xx)$}
-The Eulerian density $\rho(\xx)$ is equal to $\rho_0(\xx)$ multiplied by Jacobian of the mapping $\XX(\xx)$, and so to acquire the functional derivative of $\rho(\xx)$ we have to first  deal with functional derivative of the Eulerian deformation tensor
+\subsection{Derivative of the Eulerian deformation gradient $\FF(\xx)$}
+The Eulerian density $\rho(\xx)$ is equal to $\rho_0(\xx)$ multiplied by Jacobian of the mapping $\XX(\xx)$, and so to acquire the functional derivative of $\rho(\xx)$ we have to first  deal with functional derivative of the Eulerian deformation gradient
 \begin{equation}
 	\FF(\xx)\stackrel{def}{=}\frac{\partial \xx}{\partial \XX}\Big|_{\XX(\xx)}.
 \end{equation}
@@ -985,7 +996,7 @@ and
 \end{equation}
 So far we have recovered the $\{C,D\}^{(FM)}$ part of the bracket (the antisymmetric part is obtained as negative of the same terms with $C$ and $D$ swapped).
 
-The part dependent on the Eulerian deformation tensor $\FF(\xx)$ is calculated similarly as follows.
+The part dependent on the Eulerian deformation gradient $\FF(\xx)$ is calculated similarly as follows.
 \begin{align}
 	&\int\dX \int\dx \frac{\delta C}{\delta F^i_I(\xx)} \frac{\delta F^i_I(\xx)}{\delta x^k(\XX)} \frac{\delta D}{\delta M_k(\XX)}\nonumber\\
 	&\qquad=\int\dX \int\dx \frac{\delta C}{\delta F^i_I(\xx)}\left[
@@ -1006,8 +1017,8 @@ In summary, Eulerian Poisson bracket \eqref{eq.PB.Eu}, which expresses kinematic
 
 
 
-\section{From deformation tensor to the Left Cauchy-Green tensor}\label{sec.F-B}
-Derivative of the left Cauchy-Green tensor $\BB(\xx)$ with respect to the Eulerian deformation tensor is
+\section{From deformation gradient to the Left Cauchy-Green tensor}\label{sec.F-B}
+Derivative of the left Cauchy-Green tensor $\BB(\xx)$ with respect to the Eulerian deformation gradient is
 \begin{equation}
 	\frac{\partial B^{ij}(\xx)}{\partial F^k_K} = \delta^{IJ}(\delta^i_k \delta^K_I F^j_J +  F^i_I \delta^j_k \delta^K_J)
 	= \delta^{KJ}\delta^i_k F^j_J +  \delta^{IK} F^i_I \delta^j_k.
@@ -1020,8 +1031,8 @@ Derivative of a functional $C(\FF)$ then becomes
 and after plugging this relation into bracket \eqref{eq.PB.Eu} we obtain bracket \eqref{eq.PB.B} easily.
 
 
-\section{From deformation tensor to distortion}\label{sec.F-A}
-The purpose of this section is to show more details on the projection from bracket \eqref{eq.PB.Eu} to bracket \eqref{eq.PB.A}, expressing kinematics of distortion. The distortion is the inverse of the Eulerian deformation tensor $\FF(\xx)$, 
+\section{From deformation gradeint to distortion}\label{sec.F-A}
+The purpose of this section is to show more details on the projection from bracket \eqref{eq.PB.Eu} to bracket \eqref{eq.PB.A}, expressing kinematics of distortion. The distortion is the inverse of the Eulerian deformation gradeint $\FF(\xx)$, 
 \begin{equation}
 	A^I_i(\xx) F^j_I(\xx) = \delta^j_i.
 \end{equation}
