@@ -25,7 +25,7 @@ eulermath,% Use the Euler font for mathematics
 pdfspacing, % Makes use of pdftex’ letter spacing capabilities via the microtype package
 dottedtoc % Dotted lines leading to the page numbers in the table of contents
 ]{classicthesis} % The layout is based on the Classic Thesis style
-\usepackage{hyperref}
+
 
 \usepackage{arsclassica} % Modifies the Classic Thesis package
 
@@ -46,6 +46,10 @@ dottedtoc % Dotted lines leading to the page numbers in the table of contents
 
 \usepackage{varioref} % More descriptive referencing
 
+\usepackage[mathscr]{eucal}
+
+\usepackage{listings}
+
 %----------------------------------------------------------------------------------------
 %	THEOREM STYLES
 %---------------------------------------------------------------------------------------
@@ -61,7 +65,8 @@ dottedtoc % Dotted lines leading to the page numbers in the table of contents
 %----------------------------------------------------------------------------------------
 %	HYPERLINKS
 %---------------------------------------------------------------------------------------
-
+\pdfoutput=1
+\usepackage[colorlinks]{hyperref}
 \hypersetup{
 %draft, % Uncomment to remove all links (useful for printing in black and white)
 colorlinks=true, breaklinks=true, bookmarks=true,bookmarksnumbered,
@@ -72,4 +77,26 @@ pdfsubject={}, % PDF Subject
 pdfkeywords={}, % PDF Keywords
 pdfcreator={pdfLaTeX}, % PDF Creator
 pdfproducer={LaTeX with hyperref and ClassicThesis} % PDF producer
+}
+
+%----------------------------------------------------------------------------------------
+%	BIBLATEX
+%---------------------------------------------------------------------------------------
+
+\usepackage[backend=bibtex,giveninits=true,url=false,doi=true,eprint=true,isbn=false,
+backref,backrefstyle=none,maxbibnames=99]{biblatex}
+\DefineBibliographyStrings{english}{%
+  backrefpage = {Cited on p\adddot},%
+  backrefpages = {Cited on pp\adddot}%
+}
+
+\bibliography{library}
+
+\renewcommand*{\bibfont}{\footnotesize}
+
+% in order to suppress 'In:'
+\renewbibmacro{in:}{%
+  \ifboolexpr{%
+     test {\ifentrytype{article}}%
+  }{}{\printtext{\bibstring{in}\intitlepunct}}%
 }
